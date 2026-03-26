@@ -38,3 +38,23 @@ export function analyzeNumberLineTest(data) {
 
     return result;
 }
+
+export function analyzeArithmeticTest(data) {
+    const { accuracy, avgTime } = data;
+    let result = {};
+
+    if (accuracy < 0.5) {
+        result.level = "weak";
+        result.message = "⚠ You may struggle with basic arithmetic";
+    } else if (accuracy < 0.75) {
+        result.level = "medium";
+        result.message = " You have moderate arithmetic skills";
+    } else {
+        result.level = "strong";
+        result.message = " Your arithmetic skills are strong";
+    }
+
+    result.speed = avgTime > 4 ? "slow" : avgTime > 2 ? "moderate" : "fast";
+
+    return result;
+}
