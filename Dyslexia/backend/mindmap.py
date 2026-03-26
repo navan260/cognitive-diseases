@@ -1,17 +1,54 @@
 import os
+import re
+import urllib.parse
 from groq import Groq
 from dotenv import load_dotenv
+import google.generativeai as genai
 
-load_dotenv()
+# Load environment variables
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+# Initialize clients
+groq_key = os.getenv("GROQ_API_KEY")
+client = Groq(api_key=groq_key)
 
 def generate_mindmap(text):
-    chat_completion = client.chat.completions.create(
-        messages=[
-            {"role": "system", "content": "You are an assistant who creates simple text-based mind maps for people with dyslexia. Use indentation and bullet points (- and  •) to show hierarchy. Keep it concise."},
-            {"role": "user", "content": f"Create a mind map from the following transcript:\n\n\"\"\"\n{text}\n\"\"\""}
-        ],
-        model="llama-3.1-8b-instant", 
-    )
-    return chat_completion.choices[0].message.content
+    prompt = f"""
+    Create a simple, easy-to-understand vertical text-based flowchart for the following transcript.
+    
+    STRICT RULES:
+    1. Use boxed text for each step, like: [ STEP NAME ]
+    2. Use a vertical arrow symbol: ↓ between boxes.
+    3. Keep it VERY simple and concise.
+    4. Focus on the main sequence of events or ideas.
+    5. Output ONLY the flowchart. No intro or outro.
+    
+    Example format:
+    [ Start ]
+      ↓
+    [ Step 1 ]
+      ↓
+    [ End ]
+    
+    Transcript: "{text[:800]}"
+    """
+    
+    try:
+        # Use Groq (llama-3.3-70b-versatile) for robust text generation
+        chat_completion = client.chat.completions.create(
+            messages=[{"role": "user", "content": prompt}],
+            model="llama-3.3-70b-versatile",
+        )
+        return chat_completion.choices[0].message.content.strip()
+    except Exception as e:
+        print(f"Groq flowchart generation failed: {e}")
+        
+        # Simple fallback
+        lines = [line.strip() for line in text.split('.') if line.strip()][:4]
+        flowchart = ""
+        for i, line in enumerate(lines):
+            flowchart += f"[ {line[:30]}... ]\n"
+            if i < len(lines) - 1:
+                flowchart += "      ↓      \n"
+        return flowchart
