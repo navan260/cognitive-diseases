@@ -146,7 +146,7 @@ export default function Landing({ goToAuth }) {
                             <h2>Auditory Processing Disorder</h2>
                             <p>Auditory Processing Disorder (APD) is a condition where the
                                 brain has trouble processing the sounds it hears. It's not
-                                a hearing problem — the ears work fine — but the brain
+                                a hearing problem the ears work fine but the brain
                                 doesn't interpret the sounds correctly. This can make it hard
                                 to understand speech, follow directions, or remember what was
                                 heard, especially in noisy environments. APD can affect
