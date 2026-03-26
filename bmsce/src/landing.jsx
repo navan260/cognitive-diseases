@@ -1,4 +1,4 @@
-import PixelSnow from './PixelSnow';
+﻿import PixelSnow from './PixelSnow';
 import './landing.css';
 
 const dyslexiaImages = [
@@ -16,10 +16,10 @@ const dyscalculiaImages = [
 ];
 
 const adpImages = [
-    'https://institute.careerguide.com/wp-content/uploads/2023/10/adp-full-form.png',
-    'https://i.ytimg.com/vi/tl0oPr97e8U/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGCkgWChyMA8=&rs=AOn4CLC9gEfRSjd-f94pmNKkT6zLSuSGvg',
-    'https://study.com/cimages/multimages/16/39_image_01_adp_structure_4509084119542572263113.jpg',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkHeGZniS8bxYDzM8rslwEI5EXJBPgkcWipA&s',
+    'https://torontohearinghealth.com/wp-content/uploads/2024/08/Unlocking-the-Secrets-of-Auditory-Processing-Disorder.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTonZGn-PUsTFYu7PZsWPresE_NN949osYYg&s',
+    'https://framerusercontent.com/images/LQc41UO3iOOXZHgKNz977DkRWvQ.webp?width=1200&height=650',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXlrrSERHQw_f2HoLPNWlgazgwUXtgz0vdLw&s',
 ];
 
 function ImageGallery({ images }) {
@@ -143,16 +143,18 @@ export default function Landing({ goToAuth }) {
 
                         {/* ADP */}
                         <section className="content-section">
-                            <h2>Adenosine Diphosphate (ADP)</h2>
-                            <p>
-                                Adenosine Diphosphate (ADP) is a molecule that plays a crucial role in
-                                cellular energy transfer. It is composed of adenosine — an adenine base
-                                attached to a ribose sugar — and two phosphate groups. ADP is formed when
-                                ATP (Adenosine Triphosphate), the primary energy carrier in cells, loses one
-                                of its phosphate groups during energy release. This process is essential for
-                                various cellular functions, including muscle contraction, nerve impulse
-                                transmission, and biochemical reactions. ADP can be converted back into ATP
-                                through cellular respiration, allowing cells to maintain their energy balance.
+                            <h2>Auditory Processing Disorder</h2>
+                            <p>Auditory Processing Disorder (APD) is a condition where the
+                                brain has trouble processing the sounds it hears. It's not
+                                a hearing problem the ears work fine but the brain
+                                doesn't interpret the sounds correctly. This can make it hard
+                                to understand speech, follow directions, or remember what was
+                                heard, especially in noisy environments. APD can affect
+                                people of all ages and may be linked to other conditions
+                                like ADHD or autism. With the right support, such as speech
+                                therapy or classroom accommodations, individuals with APD
+                                can learn strategies to manage their challenges and succeed
+                                in school and daily life.
                             </p>
                             <ImageGallery images={adpImages} />
                         </section>
