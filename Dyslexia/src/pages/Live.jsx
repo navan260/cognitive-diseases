@@ -1,7 +1,8 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { jsPDF } from "jspdf";
-import { db } from "../firebase";
+import { db, auth } from "../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function Live() {
     const [isRecording, setIsRecording] = useState(false);
@@ -9,6 +10,7 @@ export default function Live() {
     const [activeTab, setActiveTab] = useState("summary");
     const [loading, setLoading] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
+    const [user, setUser] = useState(null);
     const [result, setResult] = useState({
         original: "",
         summary: "",
@@ -19,6 +21,14 @@ export default function Live() {
     const recognitionRef = useRef(null);
     // Use a ref to avoid stale closure inside onend
     const liveTextRef = useRef("");
+
+    // Get current user
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+        });
+        return () => unsubscribe();
+    }, []);
 
     const startRecording = () => {
         const SpeechRecognition =
@@ -84,14 +94,17 @@ export default function Live() {
 
                 // Auto-save to database
                 try {
-                    await addDoc(collection(db, "records"), {
-                        type: "live",
-                        original: data.original || capturedText,
-                        summary: data.summary || "No summary returned.",
-                        syllables: data.syllables ? (typeof data.syllables === 'string' ? data.syllables : JSON.stringify(data.syllables)) : "",
-                        mindmap: data.mindmap || "No flow chart returned.",
-                        createdAt: serverTimestamp()
-                    });
+                    if (user) {
+                        await addDoc(collection(db, "records"), {
+                            userId: user.uid,
+                            type: "live",
+                            original: data.original || capturedText,
+                            summary: data.summary || "No summary returned.",
+                            syllables: data.syllables ? (typeof data.syllables === 'string' ? data.syllables : JSON.stringify(data.syllables)) : "",
+                            mindmap: data.mindmap || "No flow chart returned.",
+                            createdAt: serverTimestamp()
+                        });
+                    }
                 } catch (dbErr) {
                     console.error("Firestore save error:", dbErr);
                 }

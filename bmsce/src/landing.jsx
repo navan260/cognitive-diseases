@@ -1,5 +1,7 @@
 ﻿import PixelSnow from './PixelSnow';
 import './landing.css';
+import { useLanguage } from './LanguageContext';
+import { getTranslation, languages } from './translations';
 
 const dyslexiaImages = [
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_3wys4e1z3zHSjP0Zfs0Oik-lJycvN5HZzA&s',
@@ -15,12 +17,7 @@ const dyscalculiaImages = [
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzcRrFpcMS3vTTt6mKheN34wcgZCG18os2fg&s',
 ];
 
-const adpImages = [
-    'https://torontohearinghealth.com/wp-content/uploads/2024/08/Unlocking-the-Secrets-of-Auditory-Processing-Disorder.jpg',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTonZGn-PUsTFYu7PZsWPresE_NN949osYYg&s',
-    'https://framerusercontent.com/images/LQc41UO3iOOXZHgKNz977DkRWvQ.webp?width=1200&height=650',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXlrrSERHQw_f2HoLPNWlgazgwUXtgz0vdLw&s',
-];
+
 
 function ImageGallery({ images }) {
     // Duplicate for seamless infinite scroll
@@ -37,6 +34,9 @@ function ImageGallery({ images }) {
 }
 
 export default function Landing({ goToAuth }) {
+    const { language, changeLanguage } = useLanguage();
+    const t = (key) => getTranslation(language, key);
+    
     return (
         <>
             {/* ── Full-screen snow background (fixed) ── */}
@@ -59,22 +59,36 @@ export default function Landing({ goToAuth }) {
             </div>
 
             <div className="landing-page">
+                {/* ── Language Selector (Top Left) ── */}
+                <div style={styles.languageSelector}>
+                    <select 
+                        value={language} 
+                        onChange={(e) => changeLanguage(e.target.value)}
+                        style={styles.languageDropdown}
+                    >
+                        {languages.map(lang => (
+                            <option key={lang.code} value={lang.code}>
+                                {lang.nativeName}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
                 {/* ── Navigation ── */}
                 <header className="landing-header">
-                    <h1>DDAP</h1>
+                    <h1>{t("ddap")}</h1>
                     <button id="login-btn" className="login-button" onClick={goToAuth}>
-                        Login / Signup
+                        {t("login")}
                     </button>
                 </header>
 
                 {/* ── Hero Section ── */}
                 <section className="hero-section">
-                    <h2>Cognitive Disease<br />Awareness Platform</h2>
+                    <h2>{t("heroCognitiveDiseases")}<br />{t("heroAwareness")}</h2>
                     <p>
-                        Understanding and supporting individuals with cognitive differences —
-                        from Dyslexia to Dyscalculia and beyond.
+                        {t("heroDescription")}
                     </p>
-                    <span className="scroll-hint">↓ Scroll to explore</span>
+                    <span className="scroll-hint">{t("scrollExplore")}</span>
                 </section>
 
                 {/* ── Content Sections ── */}
@@ -83,85 +97,43 @@ export default function Landing({ goToAuth }) {
 
                         {/* Overview */}
                         <section className="content-section">
-                            <h2>Cognitive Diseases</h2>
+                            <h2>{t("overviewTitle")}</h2>
                             <p>
-                                Cognitive diseases are disorders that affect a person's ability to think,
-                                remember, learn, and make decisions. They primarily involve damage or
-                                dysfunction in the brain, leading to a decline in mental abilities over time.
-                                Common examples include Alzheimer's disease, dementia, Parkinson's disease,
-                                and other neurodegenerative conditions. These diseases can result from factors
-                                such as aging, genetic predisposition, brain injury, or underlying medical
-                                conditions. While many cognitive diseases currently have no cure, early
-                                diagnosis, proper treatment, and supportive care can help manage symptoms
-                                and improve quality of life.
+                                {t("overviewText")}
                             </p>
                         </section>
 
                         {/* Problem Statement */}
                         <section className="content-section">
-                            <h2>About the Problem Statement</h2>
+                            <h2>{t("problemTitle")}</h2>
                             <p>
-                                Our platform aims to bridge the gap between awareness and action for
-                                individuals affected by cognitive learning disorders. By providing accessible
-                                information, diagnostic insights, and community support, we empower patients,
-                                caregivers, and educators to make informed decisions.
+                                {t("problemText")}
                             </p>
                         </section>
 
                         {/* Dyslexia */}
                         <section className="content-section">
-                            <h2>Dyslexia</h2>
+                            <h2>{t("dyslexiaTitle")}</h2>
                             <p>
-                                Dyslexia is a learning disorder that affects a person's ability to read,
-                                spell, and process written language, even though their intelligence is
-                                usually normal. It occurs due to differences in how the brain processes
-                                language, making it difficult to recognize words and connect letters to
-                                sounds. People with dyslexia may read slowly, confuse similar letters, or
-                                struggle with spelling, but they often have strong creative and
-                                problem-solving skills. With the right support, such as specialized teaching
-                                methods and practice, individuals with dyslexia can improve their reading
-                                abilities and succeed academically.
+                                {t("dyslexiaText")}
                             </p>
                             <ImageGallery images={dyslexiaImages} />
                         </section>
 
                         {/* Dyscalculia */}
                         <section className="content-section">
-                            <h2>Dyscalculia</h2>
+                            <h2>{t("dyscalculiaTitle")}</h2>
                             <p>
-                                Dyscalculia is a learning disorder that affects a person's ability to
-                                understand and work with numbers. It makes it difficult to grasp basic math
-                                concepts such as counting, number recognition, and arithmetic. People with
-                                dyscalculia may struggle with telling time, managing money, or solving math
-                                problems, even if they are otherwise intelligent. This condition is not
-                                related to intelligence or motivation, but rather to differences in how the
-                                brain processes numerical information. With appropriate support, individuals
-                                with dyscalculia can develop math skills and succeed in school and daily life.
+                                {t("dyscalculiaText")}
                             </p>
                             <ImageGallery images={dyscalculiaImages} />
                         </section>
 
-                        {/* ADP */}
-                        <section className="content-section">
-                            <h2>Auditory Processing Disorder</h2>
-                            <p>Auditory Processing Disorder (APD) is a condition where the
-                                brain has trouble processing the sounds it hears. It's not
-                                a hearing problem the ears work fine but the brain
-                                doesn't interpret the sounds correctly. This can make it hard
-                                to understand speech, follow directions, or remember what was
-                                heard, especially in noisy environments. APD can affect
-                                people of all ages and may be linked to other conditions
-                                like ADHD or autism. With the right support, such as speech
-                                therapy or classroom accommodations, individuals with APD
-                                can learn strategies to manage their challenges and succeed
-                                in school and daily life.
-                            </p>
-                            <ImageGallery images={adpImages} />
-                        </section>
+                       
 
                         {/* Footer */}
                         <footer className="footer-section">
-                            <h3>Connect with us</h3>
+                            <h3>{t("connectUs")}</h3>
                             <div className="social-links">
                                 <a href="https://github.com/Tanish-2112" target="_blank" rel="noreferrer" id="github-link">
                                     <img
@@ -184,3 +156,23 @@ export default function Landing({ goToAuth }) {
         </>
     );
 }
+
+const styles = {
+    languageSelector: {
+        position: "fixed",
+        top: 20,
+        left: 20,
+        zIndex: 100,
+    },
+    languageDropdown: {
+        background: "rgba(30, 41, 59, 0.9)",
+        border: "1px solid rgba(96, 165, 250, 0.3)",
+        color: "#cbd5e1",
+        padding: "8px 12px",
+        borderRadius: "8px",
+        fontSize: "14px",
+        fontFamily: "inherit",
+        cursor: "pointer",
+        backdropFilter: "blur(8px)",
+    },
+};

@@ -2,4 +2,6 @@ flask
 flask-cors
 groq
 python-dotenv
+pypdf
 pyphen
+google-generativeai

@@ -1,31 +1,31 @@
 import { useState } from "react";
 import { logout } from "./auth";
 import PixelSnow from "./PixelSnow";
-import "./auth.css"; // Reuse the matching theme styles
+import "./auth.css";
+import { useLanguage } from "./LanguageContext";
+import { getTranslation, languages } from "./translations";
 
 export default function Hero({ user }) {
+    const { language, changeLanguage } = useLanguage();
+    const t = (key) => getTranslation(language, key);
+    const [selected, setSelected] = useState(0);
+    
+    // Assessments array updates when language changes
     const assessments = [
         {
-            name: "Dyscalculia",
+            name: t("dyscalculia"),
             url: "http://localhost:5175/",
-            description: "Math and number-related assessment",
+            description: t("dyscalculiaDesc"),
             type: "Assessment"
         },
         {
-            name: "Dyslexia",
+            name: t("dyslexia"),
             url: "http://localhost:5174/",
-            description: "Reading and language-related mode",
+            description: t("dyslexiaDesc"),
             type: "Mode"
         },
-        {
-            name: "ADP",
-            url: "http://localhost:5176/",
-            description: "Attention and processing-related test",
-            type: "Test"
-        }
     ];
 
-    const [selected, setSelected] = useState(0);
     const currentAssessment = assessments[selected];
 
     return (
@@ -50,6 +50,21 @@ export default function Hero({ user }) {
             </div>
 
             <div className="auth-page">
+                {/* Language Selector (Top Left) */}
+                <div style={styles.languageSelector}>
+                    <select 
+                        value={language} 
+                        onChange={(e) => changeLanguage(e.target.value)}
+                        style={styles.languageDropdown}
+                    >
+                        {languages.map(lang => (
+                            <option key={lang.code} value={lang.code}>
+                                {lang.nativeName}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
                 <div
                     className="auth-card"
                     style={{
@@ -65,11 +80,11 @@ export default function Hero({ user }) {
                 >
 
                     <h1 className="auth-title" style={{ marginBottom: "15px" }}>
-                        🎉 Welcome {user?.email || "User"}
+                         {t("login")} {user?.email || "User"}
                     </h1>
 
                     <p className="auth-subtitle" style={{ marginBottom: "35px" }}>
-                        Select an option below to begin
+                        {t("exploreDisorders")}
                     </p>
 
                     {/* Selection tabs using auth-tab classes */}
@@ -110,7 +125,7 @@ export default function Hero({ user }) {
                         width: "100%"
                     }}>
                         <h2 style={{ color: "#d1e9ff", marginBottom: "14px", fontSize: "1.5rem", fontWeight: "700" }}>
-                            {currentAssessment.name} {currentAssessment.type}
+                            {currentAssessment.name} {t("assessment")}
                         </h2>
                         <p style={{ color: "#93b8e0", marginBottom: "32px", fontSize: "1.05rem", lineHeight: "1.6" }}>
                             {currentAssessment.description}
@@ -126,7 +141,7 @@ export default function Hero({ user }) {
                                 minWidth: "250px"
                             }}
                         >
-                            Start {currentAssessment.name} {currentAssessment.type}
+                            {t("start")} {currentAssessment.name} {t("assessment")}
                         </button>
                     </div>
 
@@ -139,10 +154,30 @@ export default function Hero({ user }) {
                             fontSize: "0.95rem"
                         }}
                     >
-                        ← Logout securely
+                        ← {t("logout")}
                     </button>
                 </div>
             </div>
         </>
     );
 }
+
+const styles = {
+    languageSelector: {
+        position: "fixed",
+        top: 20,
+        left: 20,
+        zIndex: 100,
+    },
+    languageDropdown: {
+        background: "rgba(30, 41, 59, 0.9)",
+        border: "1px solid rgba(96, 165, 250, 0.3)",
+        color: "#cbd5e1",
+        padding: "8px 12px",
+        borderRadius: "8px",
+        fontSize: "14px",
+        fontFamily: "inherit",
+        cursor: "pointer",
+        backdropFilter: "blur(8px)",
+    },
+};

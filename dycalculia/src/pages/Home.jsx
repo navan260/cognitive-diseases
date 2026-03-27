@@ -3,8 +3,12 @@ import ARCountingGame from "../components/ARCountingGame";
 import MusicMathGame from "../components/MusicMathGame";
 import StoryMode from "../components/StoryMode";
 import { useState } from "react";
+import { useLanguage } from "../LanguageContext";
+import { getTranslation, languages } from "../translations";
 
 export default function Home() {
+    const { language, changeLanguage } = useLanguage();
+    const t = (key) => getTranslation(language, key);
     const [showARCounter, setShowARCounter] = useState(false);
     const [showMusicGame, setShowMusicGame] = useState(false);
     const [showStoryMode, setShowStoryMode] = useState(false);
@@ -27,40 +31,40 @@ export default function Home() {
         {
             id: "dot",
             icon: "🔢",
-            title: "Dots Comparison",
-            description: "Identify which box has more dots. Tests your rapid number sense and visual estimation.",
+            title: t("dotsComparison"),
+            description: t("dotsComparisonDesc"),
         },
         {
             id: "numberline",
             icon: "📏",
-            title: "Number Line",
-            description: "Place a number accurately on a physical scale. Tests your spatial mathematical reasoning.",
+            title: t("numberLine"),
+            description: t("numberLineDesc"),
         },
         {
             id: "arithmetic",
             icon: "🧮",
-            title: "Arithmetic Test",
-            description: "Solve basic math problems. Tests your calculation speed and accuracy with numbers.",
+            title: t("arithmeticTest"),
+            description: t("arithmeticTestDesc"),
         },
     ];
 
     const featuresData = [
         {
             icon: "📸",
-            title: "AR Object Counter",
-            description: "Open your camera to click and count objects in real-time",
+            title: t("arObjectCounter"),
+            description: t("arObjectCounterDesc"),
             action: () => setShowARCounter(true),
         },
         {
             icon: "🎵",
-            title: "Music Math Game",
-            description: "Learn math through rhythm and beats. Tap to count and solve equations",
+            title: t("musicMathGame"),
+            description: t("musicMathGameDesc"),
             action: () => setShowMusicGame(true),
         },
         {
             icon: "📖",
-            title: "Story Mode",
-            description: "Convert math problems into engaging AI-generated stories for better understanding",
+            title: t("storyMode"),
+            description: t("storyModeDesc"),
             action: () => setShowStoryMode(true),
         },
     ];
@@ -86,13 +90,28 @@ export default function Home() {
             <HomeStyles />
             <div className="home-screen">
                 <header className="home-header">
-                    <h1 className="home-title">Dyscalculia <span>Assessment</span></h1>
-                    <p className="home-subtitle">Let’s understand how you think with numbers 🧠</p>
+                    <h1 className="home-title">{t("dyscalculiaMode")} <span>{t("assessment")}</span></h1>
+                    <p className="home-subtitle">{t("headerSubtitle")}</p>’
                 </header>
 
                 {/* Tests Carousel */}
+                <div style={styles.languageSelector}>
+                    <select 
+                        value={language} 
+                        onChange={(e) => changeLanguage(e.target.value)}
+                        style={styles.languageDropdown}
+                    >
+                        {languages.map(lang => (
+                            <option key={lang.code} value={lang.code}>
+                                {lang.nativeName}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                {/* Tests Carousel */}
                 <div className="carousel-section">
-                    <h2 className="section-heading">Assessment Tests</h2>
+                    <h2 className="section-heading">{t("assessmentTests")}</h2>
                     <div className="carousel-container">
                         <button className="carousel-btn carousel-prev" onClick={handleTestsPrev}>
                             ❮
@@ -106,7 +125,7 @@ export default function Home() {
                                             <div className="test-card-icon">{test.icon}</div>
                                             <h2>{test.title}</h2>
                                             <p>{test.description}</p>
-                                            <span className="test-action">Start Test ➔</span>
+                                            <span className="test-action">{t("startTest")}</span>
                                         </Link>
                                     </div>
                                 ))}
@@ -132,7 +151,7 @@ export default function Home() {
 
                 {/* Features Carousel */}
                 <div className="carousel-section">
-                    <h2 className="section-heading">✨ Features</h2>
+                    <h2 className="section-heading">{t("featuresSection")}</h2>
                     <div className="carousel-container">
                         <button className="carousel-btn carousel-prev" onClick={handleFeaturesPrev}>
                             ❮
@@ -146,7 +165,7 @@ export default function Home() {
                                             <div className="feature-icon">{feature.icon}</div>
                                             <h3>{feature.title}</h3>
                                             <p>{feature.description}</p>
-                                            <span className="feature-action">Start ➔</span>
+                                            <span className="feature-action">{t("start")} ➔</span>
                                         </button>
                                     </div>
                                 ))}
@@ -173,6 +192,26 @@ export default function Home() {
         </>
     );
 }
+
+const styles = {
+    languageSelector: {
+        position: "fixed",
+        top: 20,
+        left: 20,
+        zIndex: 100,
+    },
+    languageDropdown: {
+        background: "rgba(30, 41, 59, 0.9)",
+        border: "1px solid rgba(96, 165, 250, 0.3)",
+        color: "#cbd5e1",
+        padding: "8px 12px",
+        borderRadius: "8px",
+        fontSize: "14px",
+        fontFamily: "inherit",
+        cursor: "pointer",
+        backdropFilter: "blur(8px)",
+    },
+};
 
 function HomeStyles() {
     return (
