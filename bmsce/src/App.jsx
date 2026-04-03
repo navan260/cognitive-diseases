@@ -2,12 +2,23 @@ import { useEffect, useState } from "react";
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { LanguageProvider } from "./LanguageContext";
+import { Routes, Route } from "react-router-dom";
 
 import Landing from "./landing";
 import Auth from "./Auth.jsx";
 import Hero from "./hero";
 
-export default function App() {
+// Import Dyslexia Pages
+import DyslexiaHome from "./dyslexia/pages/Home";
+import DyslexiaLive from "./dyslexia/pages/Live";
+import DyslexiaUpload from "./dyslexia/pages/Upload";
+import DyslexiaPdfUpload from "./dyslexia/pages/PdfUpload";
+
+// Import Dycalculia Pages
+import DycalculiaHome from "./dycalculia/pages/Home";
+import DycalculiaSmartTest from "./dycalculia/features/smartTest/tests/SmartTest";
+
+function MainApp() {
     const [user, setUser] = useState(null);
     const [page, setPage] = useState("landing");
     const [loading, setLoading] = useState(true);
@@ -40,24 +51,38 @@ export default function App() {
     // If logged in → go to hero
     if (user) {
         return (
-            <LanguageProvider>
-                <Hero user={user} />
-            </LanguageProvider>
+            <Hero user={user} />
         );
     }
 
     // Navigation
     if (page === "auth") {
         return (
-            <LanguageProvider>
-                <Auth setPage={setPage} />
-            </LanguageProvider>
+            <Auth setPage={setPage} />
         );
     }
 
     return (
+        <Landing goToAuth={() => setPage("auth")} />
+    );
+}
+
+export default function App() {
+    return (
         <LanguageProvider>
-            <Landing goToAuth={() => setPage("auth")} />
+            <Routes>
+                <Route path="/" element={<MainApp />} />
+                
+                {/* Dyslexia Routes */}
+                <Route path="/dyslexia" element={<DyslexiaHome />} />
+                <Route path="/dyslexia/live" element={<DyslexiaLive />} />
+                <Route path="/dyslexia/upload" element={<DyslexiaUpload />} />
+                <Route path="/dyslexia/pdf-upload" element={<DyslexiaPdfUpload />} />
+                
+                {/* Dycalculia Routes */}
+                <Route path="/dycalculia" element={<DycalculiaHome />} />
+                <Route path="/dycalculia/test/:testType" element={<DycalculiaSmartTest />} />
+            </Routes>
         </LanguageProvider>
     );
 }

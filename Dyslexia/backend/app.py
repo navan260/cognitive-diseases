@@ -1,4 +1,5 @@
 import os
+import requests
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import traceback
@@ -132,6 +133,53 @@ def upload_pdf():
             return jsonify({"error": str(e)}), 500
             
     return jsonify({"error": "Invalid file type. Please upload a PDF."}), 400
+
+@app.route('/summary', methods=["POST"])
+def dycalculia_summary():
+    data = request.json
+    dot = data.get('dot', {})
+    line = data.get('line', {})
+    arithmetic = data.get('arithmetic', {})
+    prediction = data.get('prediction', '')
+    
+    prompt = f"""
+You are a friendly and supportive learning assistant.
+
+A student completed some math-related cognitive tests.
+
+Here are their results:
+Dot Accuracy: {dot.get('accuracy')}
+Response Time: {dot.get('avgTime')}
+Number Line Error: {line.get('avgError')}
+Arithmetic Accuracy: {arithmetic.get('accuracy')}
+Memory Issue: {arithmetic.get('memoryFail')}
+Difficulty Level: {prediction}
+
+TASK:
+Write a short, friendly message to the student.
+
+STYLE RULES:
+- Talk like a supportive friend or teacher
+- Keep it simple and encouraging
+- Do NOT use technical words
+- Do NOT list points or numbers
+- Write like a short paragraph (3–4 lines)
+- Give gentle suggestions for improvement
+
+Make the student feel motivated and comfortable.
+"""
+
+    try:
+        response = requests.post("http://localhost:11434/api/generate", json={
+            "model": "llama3",
+            "prompt": prompt,
+            "stream": False
+        })
+        response_data = response.json()
+        return jsonify({"text": response_data.get("response", "")})
+    except Exception as e:
+        print(f"[ERROR] Ollama request failed: {e}")
+        return jsonify({"text": "AI failed"})
 
 if __name__ == "__main__":
     app.run(debug=True)

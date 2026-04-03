@@ -15,6 +15,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+import { getFirestore } from "firebase/firestore";
+export const db = getFirestore(app);
 
 // Set persistence - use SESSION persistence so it works across tabs
 setPersistence(auth, browserSessionPersistence)

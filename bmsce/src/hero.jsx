@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { logout } from "./auth";
 import PixelSnow from "./PixelSnow";
 import "./auth.css";
@@ -6,6 +7,7 @@ import { useLanguage } from "./LanguageContext";
 import { getTranslation, languages } from "./translations";
 
 export default function Hero({ user }) {
+    const navigate = useNavigate();
     const { language, changeLanguage } = useLanguage();
     const t = (key) => getTranslation(language, key);
     const [selected, setSelected] = useState(0);
@@ -14,13 +16,13 @@ export default function Hero({ user }) {
     const assessments = [
         {
             name: t("dyscalculia"),
-            url: "http://localhost:5175/",
+            url: "/dycalculia",
             description: t("dyscalculiaDesc"),
             type: "Assessment"
         },
         {
             name: t("dyslexia"),
-            url: "http://localhost:5174/",
+            url: "/dyslexia",
             description: t("dyslexiaDesc"),
             type: "Mode"
         },
@@ -132,7 +134,7 @@ export default function Hero({ user }) {
                         </p>
 
                         <button
-                            onClick={() => window.location.href = currentAssessment.url}
+                            onClick={() => navigate(currentAssessment.url)}
                             className="auth-btn-primary"
                             style={{
                                 padding: "18px 36px",

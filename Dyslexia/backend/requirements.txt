@@ -5,3 +5,4 @@ python-dotenv
 pypdf
 pyphen
 google-generativeai
+requests
