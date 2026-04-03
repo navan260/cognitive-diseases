@@ -1,9 +1,13 @@
 import os
 import requests
+import traceback
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import traceback
+from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
+
+# Load environment variables early
+load_dotenv()
 from transcribe import transcribe_audio
 from pdf_processor import extract_text_from_pdf
 from syllable import process_text

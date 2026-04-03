@@ -7,13 +7,19 @@ import google.generativeai as genai
 
 # Load environment variables
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
-load_dotenv(dotenv_path)
+if os.path.exists(dotenv_path):
+    load_dotenv(dotenv_path)
 
-# Initialize clients
-groq_key = os.getenv("GROQ_API_KEY")
-client = Groq(api_key=groq_key)
+def get_groq_client():
+    groq_key = os.getenv("GROQ_API_KEY")
+    if not groq_key:
+        return None
+    return Groq(api_key=groq_key)
 
 def generate_mindmap(text):
+    client = get_groq_client()
+    if not client:
+        return "[ ERROR: Groq client not initialized ]"
     prompt = f"""
     Create a simple, easy-to-understand vertical text-based flowchart for the following transcript.
     
