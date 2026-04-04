@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logout } from "./auth";
-import PixelSnow from "./PixelSnow";
-import "./auth.css";
+import "./hero.css";
 import { useLanguage } from "./LanguageContext";
 import { getTranslation, languages } from "./translations";
 
@@ -10,176 +8,91 @@ export default function Hero({ user }) {
     const navigate = useNavigate();
     const { language, changeLanguage } = useLanguage();
     const t = (key) => getTranslation(language, key);
-    const [selected, setSelected] = useState(0);
     
-    // Assessments array updates when language changes
-    const assessments = [
-        {
-            name: t("dyscalculia"),
-            url: "/dycalculia",
-            description: t("dyscalculiaDesc"),
-            type: "Assessment"
-        },
-        {
-            name: t("dyslexia"),
-            url: "/dyslexia",
-            description: t("dyslexiaDesc"),
-            type: "Mode"
-        },
-    ];
-
-    const currentAssessment = assessments[selected];
+    const userDisplayName = user?.displayName || user?.email?.split('@')[0] || "User";
 
     return (
-        <>
-            {/* Same PixelSnow effect */}
-            <div className="snow-background" style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
-                <PixelSnow
-                    color="#a8d0ff"
-                    flakeSize={0.01}
-                    minFlakeSize={1.25}
-                    pixelResolution={200}
-                    speed={1.25}
-                    density={0.3}
-                    direction={125}
-                    brightness={1}
-                    depthFade={8}
-                    farPlane={20}
-                    gamma={0.4545}
-                    variant="square"
-                    style={{ width: '100%', height: '100%' }}
-                />
-            </div>
+        <div className="dashboard-wrapper">
+            <div className="snow-background"></div>
 
-            <div className="auth-page">
-                {/* Language Selector (Top Left) */}
-                <div style={styles.languageSelector}>
-                    <select 
-                        value={language} 
-                        onChange={(e) => changeLanguage(e.target.value)}
-                        style={styles.languageDropdown}
-                    >
-                        {languages.map(lang => (
-                            <option key={lang.code} value={lang.code}>
-                                {lang.nativeName}
-                            </option>
-                        ))}
-                    </select>
+            {/* Dashboard Navbar */}
+            <nav className="dash-nav">
+                <div className="dash-nav-left">
+                    <div className="dash-brand">
+                        <svg className="dash-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                        </svg>
+                        <span className="dash-brand-name">DDAP</span>
+                    </div>
                 </div>
 
-                <div
-                    className="auth-card"
-                    style={{
-                        zIndex: 1,
-                        padding: "50px 40px",
-                        maxWidth: "750px",
-                        width: "100%",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        textAlign: "center"
-                    }}
-                >
-
-                    <h1 className="auth-title" style={{ marginBottom: "15px" }}>
-                         {t("login")} {user?.email || "User"}
-                    </h1>
-
-                    <p className="auth-subtitle" style={{ marginBottom: "35px" }}>
-                        {t("exploreDisorders")}
-                    </p>
-
-                    {/* Selection tabs using auth-tab classes */}
-                    <div
-                        className="auth-tabs"
-                        style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            gap: "8px",
-                            width: "100%",
-                            padding: "8px",
-                            marginBottom: "40px"
-                        }}
-                    >
-                        {assessments.map((assessment, index) => (
-                            <button
-                                key={assessment.name}
-                                onClick={() => setSelected(index)}
-                                className={`auth-tab ${selected === index ? "active" : ""}`}
-                                style={{
-                                    padding: "16px",
-                                    fontSize: "1rem",
-                                    flex: 1
-                                }}
-                            >
-                                {assessment.name}
-                            </button>
-                        ))}
+                <div className="dash-nav-right">
+                    <div className="dash-user-badge">
+                        <svg className="user-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        <span className="user-email">{user?.email}</span>
+                        <div className="user-divider"></div>
+                        <button onClick={logout} className="dash-logout-link">{t("logout")}</button>
                     </div>
+                </div>
+            </nav>
 
-                    {/* Selected content */}
-                    <div style={{
-                        border: `1px solid rgba(95, 148, 255, 0.25)`,
-                        borderRadius: "18px",
-                        padding: "36px",
-                        marginBottom: "40px",
-                        background: "rgba(5, 13, 30, 0.45)",
-                        width: "100%"
-                    }}>
-                        <h2 style={{ color: "#d1e9ff", marginBottom: "14px", fontSize: "1.5rem", fontWeight: "700" }}>
-                            {currentAssessment.name} {t("assessment")}
-                        </h2>
-                        <p style={{ color: "#93b8e0", marginBottom: "32px", fontSize: "1.05rem", lineHeight: "1.6" }}>
-                            {currentAssessment.description}
-                        </p>
+            <div className="dashboard-main">
+                <header className="dash-header">
+                    <h1 className="dash-welcome-title">{t("welcomeBack")}</h1>
+                    <p className="dash-welcome-subtitle">{t("whatToDo")}</p>
+                </header>
 
-                        <button
-                            onClick={() => navigate(currentAssessment.url)}
-                            className="auth-btn-primary"
-                            style={{
-                                padding: "18px 36px",
-                                fontSize: "1.1rem",
-                                width: "auto",
-                                minWidth: "250px"
-                            }}
+                <div className="dash-grid">
+                    {/* Dyscalculia Card */}
+                    <div className="dash-mode-card">
+                        <div className="mode-icon-container dyscalculia-glow">
+                            <svg className="mode-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <rect x="3" y="3" width="7" height="7" rx="1" />
+                                <rect x="14" y="3" width="7" height="7" rx="1" />
+                                <rect x="3" y="14" width="7" height="7" rx="1" />
+                                <rect x="14" y="14" width="7" height="7" rx="1" />
+                                <text x="5" y="8" fontSize="4" fill="currentColor" stroke="none" fontWeight="bold">1</text>
+                                <text x="16" y="8" fontSize="4" fill="currentColor" stroke="none" fontWeight="bold">2</text>
+                                <text x="5" y="19" fontSize="4" fill="currentColor" stroke="none" fontWeight="bold">3</text>
+                                <text x="16" y="19" fontSize="4" fill="currentColor" stroke="none" fontWeight="bold">4</text>
+                            </svg>
+                        </div>
+                        <h2 className="mode-name">{t("dyscalculia")}</h2>
+                        <p className="mode-desc">{t("dyscalculiaDesc")}</p>
+                        <button 
+                            onClick={() => navigate("/dycalculia")} 
+                            className="mode-btn btn-dyscalculia"
                         >
-                            {t("start")} {currentAssessment.name} {t("assessment")}
+                            {t("startDyscalculia")}
                         </button>
                     </div>
 
-                    {/* Logout button using the ghost/link styling */}
-                    <button
-                        onClick={logout}
-                        className="auth-link"
-                        style={{
-                            padding: "10px",
-                            fontSize: "0.95rem"
-                        }}
-                    >
-                        ← {t("logout")}
-                    </button>
+                    {/* Dyslexia Card */}
+                    <div className="dash-mode-card">
+                        <div className="mode-icon-container dyslexia-glow">
+                            <svg className="mode-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                                <path d="M12 6l-1 2 2-1-1 2" fill="currentColor" stroke="none" transform="translate(-3, -2) scale(0.8)"/>
+                                <text x="10" y="10" fontSize="5" fill="currentColor" stroke="none" fontWeight="bold">A</text>
+                                <text x="15" y="7" fontSize="4" fill="currentColor" stroke="none" fontWeight="bold">B</text>
+                                <text x="13" y="15" fontSize="4" fill="currentColor" stroke="none" fontWeight="bold">C</text>
+                            </svg>
+                        </div>
+                        <h2 className="mode-name">{t("dyslexia")}</h2>
+                        <p className="mode-desc">{t("dyslexiaDesc")}</p>
+                        <button 
+                            onClick={() => navigate("/dyslexia")} 
+                            className="mode-btn btn-dyslexia"
+                        >
+                            {t("startDyslexia")}
+                        </button>
+                    </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
-
-const styles = {
-    languageSelector: {
-        position: "fixed",
-        top: 20,
-        left: 20,
-        zIndex: 100,
-    },
-    languageDropdown: {
-        background: "rgba(30, 41, 59, 0.9)",
-        border: "1px solid rgba(96, 165, 250, 0.3)",
-        color: "#cbd5e1",
-        padding: "8px 12px",
-        borderRadius: "8px",
-        fontSize: "14px",
-        fontFamily: "inherit",
-        cursor: "pointer",
-        backdropFilter: "blur(8px)",
-    },
-};
