@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
 import Webcam from "react-webcam";
+import "../pages/dyscalculia.css";
 
-export default function ARCountingGame() {
+export default function ARCountingGame({ onBack }) {
   const [isOpen, setIsOpen] = useState(false);
   const [objectCount, setObjectCount] = useState(0);
   const [popups, setPopups] = useState([]);
@@ -45,14 +46,28 @@ export default function ARCountingGame() {
   };
 
   return (
-    <div style={styles.container}>
+    <div className="dycalculia-wrapper" style={styles.container}>
+      <div className="snow-background"></div>
+      <nav className="dy-navbar">
+        <div className="dy-nav-logo" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', fontWeight: 'bold', fontSize: '1.2rem', color: 'white' }} onClick={onBack}>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}>
+                <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-1.54Z" />
+                <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-1.54Z" />
+            </svg>
+            DDAP
+        </div>
+        <button onClick={onBack} className="back-dashboard-btn" style={{ cursor: 'pointer', background: 'transparent' }}>
+            ← Back to Home
+        </button>
+      </nav>
       <style>{containerStyles}</style>
 
+      <div style={{ marginTop: '80px', width: '100%', display: 'flex', justifyContent: 'center' }}>
       {!isOpen && (
         <div style={styles.startScreen}>
           <div style={styles.startContent}>
             <div style={styles.bigIcon}>📸</div>
-            <h2>AR Object Counter</h2>
+            <h2 style={{ color: 'white', marginBottom: '10px' }}>AR Object Counter</h2>
             <p>Click on objects in the camera feed to count them</p>
             <p style={styles.subText}>Manual counting with visual feedback</p>
             <button onClick={startCamera} style={styles.startButton}>
@@ -115,6 +130,7 @@ export default function ARCountingGame() {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }

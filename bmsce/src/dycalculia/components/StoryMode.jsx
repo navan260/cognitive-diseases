@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import "../pages/dyscalculia.css";
 
-export default function StoryMode() {
+export default function StoryMode({ onBack }) {
   const [mathExpression, setMathExpression] = useState("");
   const [story, setStory] = useState("");
   const [loading, setLoading] = useState(false);
@@ -183,16 +184,23 @@ export default function StoryMode() {
   const currentLanguage = getLanguageInfo(selectedLanguage);
 
   return (
-    <div style={styles.container}>
+    <div className="dycalculia-wrapper" style={styles.container}>
+      <div className="snow-background"></div>
+      <nav className="dy-navbar">
+        <div className="dy-nav-logo" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', fontWeight: 'bold', fontSize: '1.2rem', color: 'white' }} onClick={onBack}>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}>
+                <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-1.54Z" />
+                <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-1.54Z" />
+            </svg>
+            DDAP
+        </div>
+        <button onClick={onBack} className="back-dashboard-btn" style={{ cursor: 'pointer', background: 'transparent' }}>
+            ← Back to Home
+        </button>
+      </nav>
       <style>{globalStyles}</style>
 
-      {/* Animated Background */}
-      <div style={styles.animatedBg}>
-        <div style={styles.blob1}></div>
-        <div style={styles.blob2}></div>
-        <div style={styles.blob3}></div>
-      </div>
-
+      <div style={{ marginTop: '80px', width: '100%', display: 'flex', justifyContent: 'center' }}>
       <div style={styles.contentWrapper}>
         {/* Header */}
         <div style={styles.headerSection}>
@@ -346,6 +354,7 @@ export default function StoryMode() {
           </p>
         </div>
       </div>
+      </div>
     </div>
   );
 }
@@ -447,7 +456,6 @@ const globalStyles = `
 const styles = {
   container: {
     minHeight: "100vh",
-    background: "linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -538,14 +546,15 @@ const styles = {
   },
 
   mainCard: {
-    background: "rgba(255, 255, 255, 0.95)",
-    backdropFilter: "blur(20px)",
-    borderRadius: "24px",
+    background: "var(--dy-glass-bg)",
+    backdropFilter: "blur(32px)",
+    borderRadius: "32px",
     padding: "40px",
-    boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(102, 126, 234, 0.2)",
-    border: "1px solid rgba(255, 255, 255, 0.5)",
+    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+    border: "1px solid var(--dy-glass-border)",
     animation: "slideUp 0.7s ease-out",
     animationDelay: "0.1s",
+    color: "var(--dy-text-primary)",
   },
 
   languageSection: {
@@ -558,11 +567,11 @@ const styles = {
 
   languageButton: {
     width: "100%",
-    padding: "12px 16px",
-    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    padding: "16px 20px",
+    background: "rgba(255, 255, 255, 0.03)",
     color: "white",
-    border: "none",
-    borderRadius: "12px",
+    border: "1px solid var(--dy-glass-border)",
+    borderRadius: "16px",
     fontSize: "14px",
     fontWeight: "600",
     cursor: "pointer",
@@ -570,7 +579,6 @@ const styles = {
     alignItems: "center",
     justifyContent: "space-between",
     transition: "all 0.3s ease",
-    fontFamily: "'Poppins', sans-serif",
   },
 
   chevron: {
@@ -580,38 +588,38 @@ const styles = {
 
   languageDropdown: {
     position: "absolute",
-    top: "50px",
+    top: "60px",
     left: 0,
     right: 0,
-    background: "white",
-    border: "2px solid #667eea",
-    borderRadius: "12px",
+    background: "var(--dy-glass-bg)",
+    backdropFilter: "blur(32px)",
+    border: "1px solid var(--dy-glass-border)",
+    borderRadius: "16px",
     overflow: "hidden",
     zIndex: 10,
-    boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2)",
+    boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)",
     animation: "slideUp 0.3s ease-out",
   },
 
   languageOption: {
     width: "100%",
-    padding: "12px 16px",
-    background: "white",
+    padding: "16px 20px",
+    background: "transparent",
     border: "none",
     textAlign: "left",
     cursor: "pointer",
     fontSize: "14px",
     fontWeight: "600",
-    fontFamily: "'Poppins', sans-serif",
     transition: "all 0.2s ease",
-    borderBottom: "1px solid #f0f0f0",
-    color: "#1a1a1a",
+    borderBottom: "1px solid var(--dy-glass-border)",
+    color: "var(--dy-text-secondary)",
   },
 
   languageOptionActive: {
-    background: "#f0f0ff",
-    color: "#667eea",
+    background: "rgba(37, 99, 235, 0.1)",
+    color: "white",
     fontWeight: "700",
-    borderLeft: "4px solid #667eea",
+    borderLeft: "4px solid var(--dy-sapphire-main)",
   },
 
   inputContainer: {
@@ -633,43 +641,40 @@ const styles = {
   label: {
     fontSize: "15px",
     fontWeight: "700",
-    color: "#1a1a1a",
+    color: "var(--dy-text-secondary)",
     margin: 0,
-    fontFamily: "'Poppins', sans-serif",
-    letterSpacing: "0.3px",
+    letterSpacing: "0.5px",
   },
 
   input: {
     width: "100%",
-    padding: "14px 16px",
+    padding: "16px",
     fontSize: "16px",
-    border: "2px solid #d0d0d0",
-    borderRadius: "12px",
-    fontFamily: "'Poppins', sans-serif",
+    background: "rgba(255, 255, 255, 0.02)",
+    border: "1px solid var(--dy-glass-border)",
+    borderRadius: "16px",
     transition: "all 0.3s ease",
     boxSizing: "border-box",
-    background: "white",
-    color: "#1a1a1a",
+    color: "white",
   },
 
   generateButton: {
     width: "100%",
-    padding: "14px 24px",
+    padding: "16px 24px",
     fontSize: "16px",
     fontWeight: "700",
     color: "white",
-    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    background: "linear-gradient(135deg, var(--dy-sapphire-main) 0%, rgb(30, 58, 138) 100%)",
     border: "none",
-    borderRadius: "12px",
+    borderRadius: "16px",
     cursor: "pointer",
     transition: "all 0.3s ease",
-    fontFamily: "'Poppins', sans-serif",
     marginBottom: "20px",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     gap: "8px",
-    boxShadow: "0 10px 25px rgba(102, 126, 234, 0.3)",
+    boxShadow: "0 10px 25px rgba(37, 99, 235, 0.3)",
   },
 
   buttonIcon: {
@@ -678,10 +683,10 @@ const styles = {
   },
 
   errorBox: {
-    background: "linear-gradient(135deg, #fee 0%, #fcc 100%)",
-    border: "2px solid #f87171",
-    borderRadius: "12px",
-    padding: "14px 16px",
+    background: "rgba(239, 68, 68, 0.1)",
+    border: "1px solid var(--dy-error)",
+    borderRadius: "16px",
+    padding: "16px",
     display: "flex",
     alignItems: "center",
     gap: "12px",
@@ -695,11 +700,10 @@ const styles = {
   },
 
   errorText: {
-    color: "#991b1b",
+    color: "#fca5a5",
     margin: 0,
     fontSize: "14px",
     fontWeight: "500",
-    fontFamily: "'Poppins', sans-serif",
   },
 
   loadingBox: {
@@ -719,23 +723,22 @@ const styles = {
     width: "10px",
     height: "10px",
     borderRadius: "50%",
-    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    background: "var(--dy-sapphire-main)",
     animation: "pulse 1.5s ease-in-out infinite",
   },
 
   loadingText: {
-    color: "#667eea",
+    color: "var(--dy-sapphire-main)",
     fontSize: "14px",
     fontWeight: "600",
     margin: 0,
-    fontFamily: "'Poppins', sans-serif",
   },
 
   storyCard: {
-    background: "linear-gradient(135deg, #f0f4ff 0%, #ffe0f0 100%)",
-    borderRadius: "16px",
-    padding: "24px",
-    border: "2px solid rgba(102, 126, 234, 0.2)",
+    background: "rgba(255, 255, 255, 0.03)",
+    border: "1px solid var(--dy-glass-border)",
+    borderRadius: "24px",
+    padding: "32px",
     animation: "slideUp 0.5s ease-out",
     marginBottom: "20px",
   },
@@ -752,11 +755,10 @@ const styles = {
   },
 
   storyTitle: {
-    fontSize: "18px",
+    fontSize: "20px",
     fontWeight: "700",
-    color: "#667eea",
+    color: "white",
     margin: 0,
-    fontFamily: "'Poppins', sans-serif",
   },
 
   storyContent: {
@@ -766,9 +768,8 @@ const styles = {
   storyText: {
     fontSize: "16px",
     lineHeight: "1.8",
-    color: "#333",
+    color: "var(--dy-text-secondary)",
     margin: 0,
-    fontFamily: "'Poppins', sans-serif",
     fontWeight: "500",
   },
 
@@ -779,25 +780,23 @@ const styles = {
   },
 
   audioButton: {
-    padding: "12px 24px",
+    padding: "16px 24px",
     fontSize: "14px",
     fontWeight: "600",
     color: "white",
-    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    border: "none",
-    borderRadius: "10px",
+    background: "rgba(255, 255, 255, 0.03)",
+    border: "1px solid var(--dy-glass-border)",
+    borderRadius: "16px",
     cursor: "pointer",
     transition: "all 0.3s ease",
-    fontFamily: "'Poppins', sans-serif",
     display: "flex",
     alignItems: "center",
     gap: "8px",
-    boxShadow: "0 8px 20px rgba(102, 126, 234, 0.2)",
   },
 
   audioButtonActive: {
-    background: "linear-gradient(135deg, #764ba2 0%, #667eea 100%)",
-    boxShadow: "0 8px 25px rgba(118, 75, 162, 0.4)",
+    background: "rgba(37, 99, 235, 0.2)",
+    border: "1px solid var(--dy-sapphire-main)",
     animation: "pulse 1.5s ease-in-out infinite",
   },
 
@@ -812,7 +811,7 @@ const styles = {
     justifyContent: "center",
     flexWrap: "wrap",
     paddingTop: "16px",
-    borderTop: "1px solid rgba(102, 126, 234, 0.2)",
+    borderTop: "1px solid var(--dy-glass-border)",
   },
 
   statItem: {
@@ -820,9 +819,8 @@ const styles = {
     alignItems: "center",
     gap: "6px",
     fontSize: "13px",
-    color: "#667eea",
+    color: "var(--dy-sapphire-main)",
     fontWeight: "600",
-    fontFamily: "'Poppins', sans-serif",
   },
 
   statIcon: {
@@ -839,9 +837,8 @@ const styles = {
   },
 
   tipText: {
-    color: "rgba(255, 255, 255, 0.9)",
+    color: "var(--dy-text-secondary)",
     fontSize: "14px",
-    fontFamily: "'Poppins', sans-serif",
     margin: 0,
     fontWeight: "500",
   },

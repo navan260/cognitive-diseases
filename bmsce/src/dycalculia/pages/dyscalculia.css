@@ -1,0 +1,562 @@
+/* ── Dyscalculia Inky Midnight Design System ── */
+
+:root {
+  --dy-bg: #020411;
+  --dy-sapphire-main: #2563eb;
+  --dy-sapphire-glow: rgba(37, 99, 235, 0.4);
+  --dy-glass-bg: rgba(15, 23, 42, 0.6);
+  --dy-glass-border: rgba(255, 255, 255, 0.08);
+  --dy-text-primary: #f8fafc;
+  --dy-text-secondary: #94a3af;
+  --dy-accent: #3b82f6;
+  --dy-success: #10b981;
+  --dy-error: #ef4444;
+}
+
+.dycalculia-wrapper {
+  background-color: var(--dy-bg);
+  min-height: 100vh;
+  color: var(--dy-text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── Cinematic Snow Background ── */
+.snow-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(37, 99, 235, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(37, 99, 235, 0.08) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.snow-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* ── Platform Navbar ── */
+.dy-navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 24px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  background: rgba(2, 4, 17, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--dy-glass-border);
+}
+
+.dy-nav-logo {
+  font-size: 24px;
+  font-weight: 800;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.back-dashboard-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 8px 16px;
+  border-radius: 99px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.back-dashboard-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  transform: translateX(-4px);
+}
+
+/* ── Main Layout ── */
+.dy-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 24px 80px;
+  position: relative;
+  z-index: 10;
+}
+
+.dy-header {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: dy-fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.dy-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dy-subtitle {
+  font-size: 1.15rem;
+  color: var(--dy-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ── Glassmorphic Panels ── */
+.dy-panel {
+  background: var(--dy-glass-bg);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid var(--dy-glass-border);
+  border-radius: 32px;
+  padding: 40px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Cinematic Carousels ── */
+.dy-carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  margin: 40px 0;
+}
+
+.dy-carousel-viewport {
+  width: 420px;
+  height: 320px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 32px;
+}
+
+.dy-carousel-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  height: 100%;
+}
+
+.dy-card {
+  flex: 0 0 100%;
+  padding: 40px;
+  background: var(--dy-glass-bg);
+  border: 1px solid var(--dy-glass-border);
+  border-radius: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.dy-card:hover {
+  border-color: rgba(37, 99, 235, 0.4);
+  background: rgba(15, 23, 42, 0.8);
+  transform: translateY(-8px);
+}
+
+.dy-card-icon {
+  font-size: 3.5rem;
+  margin-bottom: 24px;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+}
+
+.dy-card h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.dy-card p {
+  color: var(--dy-text-secondary);
+  line-height: 1.6;
+}
+
+.dy-nav-btn {
+  background: rgba(37, 99, 235, 0.15);
+  border: 1px solid rgba(37, 99, 235, 0.3);
+  color: var(--dy-sapphire-main);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dy-nav-btn:hover {
+  background: var(--dy-sapphire-main);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+}
+
+/* ── Diagnostic Results Screen ── */
+.dy-result-card {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.dy-performance-badge {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--dy-glass-border);
+  border-radius: 24px;
+  margin-bottom: 32px;
+}
+
+.dy-level-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.dy-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.dy-stat-box {
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--dy-glass-border);
+  border-radius: 20px;
+  text-align: center;
+}
+
+.dy-insight-panel {
+  background: rgba(37, 99, 235, 0.05);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-radius: 24px;
+  padding: 32px;
+  margin-top: 32px;
+}
+
+/* ── Animations ── */
+@keyframes dy-fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* ── Dot Test Specifics ── */
+.dt-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 40px 20px;
+  animation: dy-fade-in-up 0.5s ease both;
+}
+
+.dt-header {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.dt-instruction {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: var(--dy-text-primary);
+}
+
+.dt-meta {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.dt-badge {
+  background: rgba(37, 99, 235, 0.1);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  color: var(--dy-accent);
+  padding: 6px 16px;
+  border-radius: 99px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.dt-progress-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.dt-progress-fill {
+  height: 100%;
+  background: var(--dy-accent);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dt-boxes-row {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.dt-dot-box {
+  width: 280px;
+  height: 280px;
+  background: var(--dy-glass-bg);
+  border: 2px solid var(--dy-glass-border);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  padding: 10px;
+}
+
+.dt-dot-box:not(:disabled):hover {
+  transform: scale(1.05);
+  border-color: var(--dy-accent);
+  box-shadow: 0 0 30px rgba(37, 99, 235, 0.2);
+}
+
+.dt-dot-box.dt-flash-green { animation: dt-flash-green 0.6s ease forwards; }
+.dt-dot-box.dt-flash-red { animation: dt-flash-red 0.6s ease forwards; }
+
+@keyframes dt-flash-green {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+  40% { box-shadow: 0 0 0 20px rgba(16, 185, 129, 0.3); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+@keyframes dt-flash-red {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+  40% { box-shadow: 0 0 0 20px rgba(239, 68, 68, 0.3); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+/* ── Number Line Specifics ── */
+.nl-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 40px 20px;
+  animation: dy-fade-in-up 0.5s ease both;
+}
+
+.nl-header {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.nl-target-display {
+  font-size: 5rem;
+  font-weight: 900;
+  color: white;
+  margin-bottom: 40px;
+  text-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+}
+
+.nl-scale-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 80px;
+  cursor: crosshair;
+  margin: 40px 0;
+  display: flex;
+  align-items: center;
+}
+
+.nl-base-line {
+  position: absolute;
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.nl-tick-mark {
+  background: rgba(255, 255, 255, 0.3);
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+}
+
+.nl-tick-mark.major { width: 4px; height: 32px; background: rgba(255, 255, 255, 0.8); }
+.nl-tick-mark.mid { width: 3px; height: 20px; background: rgba(255, 255, 255, 0.5); }
+.nl-tick-mark.minor { width: 2px; height: 12px; background: rgba(255, 255, 255, 0.2); }
+
+.nl-tick-label {
+  position: absolute;
+  top: 40px;
+  transform: translateX(-50%);
+  font-size: 0.85rem;
+  color: var(--dy-text-secondary);
+  font-weight: 600;
+}
+
+.nl-marker {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 50;
+  animation: nl-pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.nl-marker-pin {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.nl-marker-label {
+  position: absolute;
+  bottom: 24px;
+  white-space: nowrap;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: white;
+}
+
+.user-marker .nl-marker-pin { background: var(--dy-error); }
+.user-marker .nl-marker-label { background: var(--dy-error); }
+
+.target-marker .nl-marker-pin { background: var(--dy-success); }
+.target-marker .nl-marker-label { background: var(--dy-success); }
+/* ── Arithmetic Specifics ── */
+.at-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 40px 20px;
+  animation: dy-fade-in-up 0.5s ease both;
+}
+
+.at-header {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.at-question-box {
+  background: var(--dy-glass-bg);
+  border: 1px solid var(--dy-glass-border);
+  padding: 48px;
+  border-radius: 32px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  animation: at-pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.at-equation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  font-size: 4rem;
+  font-weight: 900;
+  color: white;
+}
+
+.at-operator { color: var(--dy-accent); }
+.at-qmark { color: var(--dy-accent); text-shadow: 0 0 20px rgba(37, 99, 235, 0.5); }
+
+.at-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.at-option-btn {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 24px;
+  border-radius: 20px;
+  font-size: 2rem;
+  font-weight: 800;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.at-option-btn:not(:disabled):hover {
+  transform: scale(1.05);
+  border-color: var(--dy-accent);
+  background: rgba(37, 99, 235, 0.1);
+}
+
+.at-option-btn.at-correct {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: var(--dy-success);
+  color: var(--dy-success);
+}
+
+.at-option-btn.at-wrong {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: var(--dy-error);
+  color: var(--dy-error);
+  animation: at-shake 0.4s ease forwards;
+}
+
+@keyframes at-pop-in {
+  from { opacity: 0; transform: scale(0.8) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes at-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
+import "../pages/dyscalculia.css";
 
-export default function MusicMathGame() {
+export default function MusicMathGame({ onBack }) {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [correctAnswer, setCorrectAnswer] = useState(0);
   const [currentNum1, setCurrentNum1] = useState(0);
@@ -491,9 +492,23 @@ export default function MusicMathGame() {
   );
 
   return (
-    <div style={styles.container}>
+    <div className="dycalculia-wrapper" style={styles.container}>
+      <div className="snow-background"></div>
+      <nav className="dy-navbar">
+        <div className="dy-nav-logo" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', fontWeight: 'bold', fontSize: '1.2rem', color: 'white' }} onClick={onBack}>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}>
+                <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-1.54Z" />
+                <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-1.54Z" />
+            </svg>
+            DDAP
+        </div>
+        <button onClick={onBack} className="back-dashboard-btn" style={{ cursor: 'pointer', background: 'transparent' }}>
+            ← Back to Home
+        </button>
+      </nav>
       <style>{containerStyles}</style>
 
+      <div style={{ marginTop: '80px', width: '100%', display: 'flex', justifyContent: 'center' }}>
       <div style={styles.gameCard}>
         <div style={styles.header}>
           <div>
@@ -631,6 +646,7 @@ export default function MusicMathGame() {
           <p>💡 Difficulty increases as you get more correct answers in a row!</p>
         </div>
       </div>
+      </div>
     </div>
   );
 }
@@ -641,19 +657,18 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     minHeight: "100vh",
-    padding: "20px",
-    background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
-    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+    padding: "20px"
   },
   gameCard: {
     width: "100%",
     maxWidth: "600px",
-    background: "rgba(30, 41, 59, 0.8)",
-    backdropFilter: "blur(12px)",
-    border: "1px solid rgba(148, 51, 234, 0.3)",
-    borderRadius: "24px",
+    background: "var(--dy-glass-bg)",
+    backdropFilter: "blur(32px)",
+    border: "1px solid var(--dy-glass-border)",
+    borderRadius: "32px",
     padding: "40px",
-    boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(148, 51, 234, 0.1)"
+    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+    color: "var(--dy-text-primary)"
   },
   header: {
     display: "flex",
@@ -677,10 +692,10 @@ const styles = {
     gap: "16px"
   },
   stat: {
-    background: "rgba(148, 51, 234, 0.1)",
+    background: "rgba(255, 255, 255, 0.02)",
     padding: "12px 16px",
     borderRadius: "12px",
-    border: "1px solid rgba(148, 51, 234, 0.3)",
+    border: "1px solid var(--dy-glass-border)",
     textAlign: "center"
   },
   statLabel: {
@@ -693,14 +708,14 @@ const styles = {
     display: "block",
     fontSize: "20px",
     fontWeight: "700",
-    color: "#c084fc"
+    color: "#3b82f6"
   },
   levelProgressContainer: {
     marginTop: "20px",
     padding: "12px 16px",
-    background: "rgba(168, 85, 247, 0.1)",
+    background: "rgba(255, 255, 255, 0.02)",
     borderRadius: "12px",
-    border: "1px solid rgba(168, 85, 247, 0.3)"
+    border: "1px solid var(--dy-glass-border)"
   },
   levelProgressLabel: {
     fontSize: "12px",
@@ -711,16 +726,16 @@ const styles = {
   },
   levelProgressBar: {
     height: "8px",
-    background: "rgba(168, 85, 247, 0.2)",
+    background: "rgba(255, 255, 255, 0.1)",
     borderRadius: "4px",
     overflow: "hidden",
-    border: "1px solid rgba(168, 85, 247, 0.3)"
+    border: "none"
   },
   levelProgressFill: {
     height: "100%",
-    background: "linear-gradient(90deg, #a855f7 0%, #d946ef 100%)",
+    background: "linear-gradient(90deg, #3b82f6 0%, #10b981 100%)",
     transition: "width 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-    boxShadow: "0 0 10px rgba(217, 70, 239, 0.6)"
+    boxShadow: "0 0 10px rgba(16, 185, 129, 0.6)"
   },
   startSection: {
     textAlign: "center",
@@ -734,24 +749,24 @@ const styles = {
   startButton: {
     marginTop: "20px",
     padding: "16px 32px",
-    background: "linear-gradient(135deg, #9333ea 0%, #7c3aed 100%)",
+    background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
     color: "white",
     border: "none",
-    borderRadius: "12px",
+    borderRadius: "16px",
     fontSize: "16px",
-    fontWeight: "600",
+    fontWeight: "700",
     cursor: "pointer",
     transition: "all 0.3s ease",
-    boxShadow: "0 4px 15px rgba(147, 51, 234, 0.4)"
+    boxShadow: "0 4px 15px rgba(37, 99, 235, 0.4)"
   },
   gameSection: {
     animation: "fadeIn 0.5s ease"
   },
   questionBox: {
-    background: "linear-gradient(135deg, rgba(148, 51, 234, 0.2) 0%, rgba(168, 85, 247, 0.1) 100%)",
-    border: "2px solid rgba(168, 85, 247, 0.3)",
-    borderRadius: "16px",
-    padding: "24px",
+    background: "rgba(255, 255, 255, 0.03)",
+    border: "1px solid var(--dy-glass-border)",
+    borderRadius: "24px",
+    padding: "32px",
     marginBottom: "30px",
     textAlign: "center"
   },
@@ -786,25 +801,25 @@ const styles = {
     width: "32px",
     height: "32px",
     borderRadius: "50%",
-    background: "rgba(168, 85, 247, 0.2)",
-    border: "2px solid rgba(168, 85, 247, 0.4)",
+    background: "rgba(255, 255, 255, 0.05)",
+    border: "2px solid rgba(255, 255, 255, 0.2)",
     transition: "all 0.1s ease"
   },
   beatDotActive: {
     width: "48px",
     height: "48px",
-    background: "rgba(168, 85, 247, 0.8)",
-    border: "2px solid #c084fc",
-    boxShadow: "0 0 20px rgba(192, 132, 252, 0.6)"
+    background: "rgba(59, 130, 246, 0.8)",
+    border: "2px solid #3b82f6",
+    boxShadow: "0 0 20px rgba(59, 130, 246, 0.6)"
   },
   beatDotTap: {
-    background: "rgba(34, 197, 94, 0.8)",
-    border: "2px solid #22c55e",
-    boxShadow: "0 0 20px rgba(34, 197, 94, 0.6)"
+    background: "rgba(16, 185, 129, 0.8)",
+    border: "2px solid #10b981",
+    boxShadow: "0 0 20px rgba(16, 185, 129, 0.6)"
   },
   statusMessage: {
     textAlign: "center",
-    color: "#c084fc",
+    color: "#3b82f6",
     fontSize: "14px",
     marginBottom: "20px",
     fontWeight: "600"
@@ -820,7 +835,7 @@ const styles = {
   },
   tapButton: {
     padding: "20px 40px",
-    background: "linear-gradient(135deg, #22c55e 0%, #16a34a 100%)",
+    background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
     color: "white",
     border: "none",
     borderRadius: "16px",
@@ -828,34 +843,34 @@ const styles = {
     fontWeight: "700",
     cursor: "pointer",
     transition: "all 0.2s ease",
-    boxShadow: "0 4px 15px rgba(34, 197, 94, 0.4)",
+    boxShadow: "0 4px 15px rgba(37, 99, 235, 0.4)",
     minWidth: "200px"
   },
   tapCounter: {
     marginTop: "16px",
     fontSize: "14px",
-    color: "#22c55e",
+    color: "#3b82f6",
     fontWeight: "600"
   },
   resultsBox: {
-    background: "rgba(34, 197, 94, 0.1)",
-    border: "2px solid rgba(34, 197, 94, 0.3)",
-    borderRadius: "16px",
-    padding: "24px",
+    background: "rgba(59, 130, 246, 0.05)",
+    border: "1px solid rgba(59, 130, 246, 0.2)",
+    borderRadius: "24px",
+    padding: "32px",
     marginBottom: "30px",
     textAlign: "center"
   },
   resultsBoxSuccess: {
-    background: "rgba(34, 197, 94, 0.15)",
-    borderColor: "rgba(34, 197, 94, 0.5)"
+    background: "rgba(16, 185, 129, 0.1)",
+    borderColor: "var(--dy-success)"
   },
   resultsBoxIncorrect: {
     background: "rgba(239, 68, 68, 0.1)",
-    borderColor: "rgba(239, 68, 68, 0.3)"
+    borderColor: "var(--dy-error)"
   },
   resultsBoxError: {
-    background: "rgba(168, 85, 247, 0.1)",
-    borderColor: "rgba(168, 85, 247, 0.3)"
+    background: "rgba(245, 158, 11, 0.1)",
+    borderColor: "#f59e0b"
   },
   feedbackText: {
     fontSize: "18px",
@@ -881,27 +896,27 @@ const styles = {
     flexWrap: "wrap"
   },
   retryButton: {
-    padding: "12px 24px",
+    padding: "16px 24px",
+    background: "rgba(255, 255, 255, 0.05)",
+    border: "1px solid var(--dy-glass-border)",
+    color: "white",
+    borderRadius: "16px",
+    fontSize: "14px",
+    fontWeight: "700",
+    cursor: "pointer",
+    transition: "all 0.3s ease",
+  },
+  nextButton: {
+    padding: "16px 24px",
     background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
     color: "white",
     border: "none",
-    borderRadius: "10px",
+    borderRadius: "16px",
     fontSize: "14px",
-    fontWeight: "600",
+    fontWeight: "700",
     cursor: "pointer",
     transition: "all 0.3s ease",
-    boxShadow: "0 4px 15px rgba(59, 130, 246, 0.4)"
-  },
-  nextButton: {
-    padding: "12px 24px",
-    background: "linear-gradient(135deg, #9333ea 0%, #7c3aed 100%)",
-    color: "white",
-    border: "none",
-    borderRadius: "10px",
-    fontSize: "14px",
-    fontWeight: "600",
-    cursor: "pointer",
-    transition: "all 0.3s ease"
+    boxShadow: "0 4px 15px rgba(37, 99, 235, 0.4)"
   },
   loadingAnimation: {
     textAlign: "center",
@@ -909,18 +924,18 @@ const styles = {
   },
   info: {
     marginTop: "30px",
-    padding: "16px",
-    background: "rgba(168, 85, 247, 0.1)",
-    borderRadius: "12px",
-    border: "1px solid rgba(168, 85, 247, 0.2)"
+    padding: "24px",
+    background: "rgba(255, 255, 255, 0.02)",
+    borderRadius: "20px",
+    border: "1px solid var(--dy-glass-border)"
   },
   operationSelector: {
     marginTop: "30px",
     marginBottom: "30px",
     padding: "24px",
-    background: "rgba(168, 85, 247, 0.1)",
-    borderRadius: "16px",
-    border: "2px solid rgba(168, 85, 247, 0.3)"
+    background: "rgba(255, 255, 255, 0.02)",
+    borderRadius: "20px",
+    border: "1px solid var(--dy-glass-border)"
   },
   operationLabel: {
     fontSize: "16px",
@@ -936,10 +951,10 @@ const styles = {
   },
   opButton: {
     padding: "16px 12px",
-    background: "rgba(168, 85, 247, 0.1)",
-    border: "2px solid rgba(168, 85, 247, 0.3)",
+    background: "rgba(255, 255, 255, 0.02)",
+    border: "1px solid var(--dy-glass-border)",
     color: "#cbd5e1",
-    borderRadius: "12px",
+    borderRadius: "16px",
     fontSize: "14px",
     fontWeight: "600",
     cursor: "pointer",
@@ -947,8 +962,8 @@ const styles = {
     minHeight: "80px"
   },
   opButtonActive: {
-    background: "rgba(168, 85, 247, 0.3)",
-    border: "2px solid #a855f7",
+    background: "rgba(37, 99, 235, 0.2)",
+    border: "2px solid #3b82f6",
     color: "white"
   },
   opNote: {
@@ -971,15 +986,14 @@ const styles = {
   },
   customButton: {
     padding: "16px 32px",
-    background: "linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)",
+    background: "rgba(255, 255, 255, 0.05)",
     color: "white",
-    border: "2px solid rgba(168, 85, 247, 0.5)",
-    borderRadius: "12px",
+    border: "1px solid var(--dy-glass-border)",
+    borderRadius: "16px",
     fontSize: "16px",
-    fontWeight: "600",
+    fontWeight: "700",
     cursor: "pointer",
     transition: "all 0.3s ease",
-    boxShadow: "0 4px 15px rgba(139, 92, 246, 0.4)",
     display: "flex",
     alignItems: "center",
     gap: "8px",
