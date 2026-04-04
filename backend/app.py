@@ -5,6 +5,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
+import google.generativeai as genai
 
 # Load environment variables early
 load_dotenv()
@@ -174,15 +175,12 @@ Make the student feel motivated and comfortable.
 """
 
     try:
-        response = requests.post("http://localhost:11434/api/generate", json={
-            "model": "llama3",
-            "prompt": prompt,
-            "stream": False
-        })
-        response_data = response.json()
-        return jsonify({"text": response_data.get("response", "")})
+        genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        response = model.generate_content(prompt)
+        return jsonify({"text": response.text})
     except Exception as e:
-        print(f"[ERROR] Ollama request failed: {e}")
+        print(f"[ERROR] Gemini request failed: {e}")
         return jsonify({"text": "AI failed"})
 
 if __name__ == "__main__":
