@@ -1,11 +1,15 @@
 import React, { createContext, useState, useContext } from "react";
+import { getTranslation } from "./translations";
 
 const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
     const [language, setLanguage] = useState(() => {
-        // Get saved language from shared localStorage
         return localStorage.getItem("cognitive_platform_language") || "en";
+    });
+
+    const [isDyslexicFont, setIsDyslexicFont] = useState(() => {
+        return localStorage.getItem("isDyslexicFont") === "true";
     });
 
     const changeLanguage = (lang) => {
@@ -13,8 +17,16 @@ export const LanguageProvider = ({ children }) => {
         localStorage.setItem("cognitive_platform_language", lang);
     };
 
+    const toggleDyslexicFont = () => {
+        const newState = !isDyslexicFont;
+        setIsDyslexicFont(newState);
+        localStorage.setItem("isDyslexicFont", newState);
+    };
+
+    const t = (key) => getTranslation(language, key);
+
     return (
-        <LanguageContext.Provider value={{ language, changeLanguage }}>
+        <LanguageContext.Provider value={{ language, changeLanguage, t, isDyslexicFont, toggleDyslexicFont }}>
             {children}
         </LanguageContext.Provider>
     );

@@ -4,9 +4,12 @@ import { jsPDF } from "jspdf";
 import { db, auth } from "@/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
+import { useLanguage } from "@/LanguageContext";
+import "./dyslexia.css";
 
 export default function Upload() {
     const navigate = useNavigate();
+    const { t, isDyslexicFont } = useLanguage();
     const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false);
     const [activeTab, setActiveTab] = useState("summary");
@@ -19,7 +22,6 @@ export default function Upload() {
         mindmap: "",
     });
 
-    // Get current user
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
@@ -29,9 +31,7 @@ export default function Upload() {
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
-        if (selectedFile) {
-            setFile(selectedFile);
-        }
+        if (selectedFile) setFile(selectedFile);
     };
 
     const handleUpload = async () => {
@@ -50,10 +50,7 @@ export default function Upload() {
                 body: formData,
             });
 
-            if (!res.ok) {
-                const errorData = await res.json();
-                throw new Error(errorData.error || "Upload failed");
-            }
+            if (!res.ok) throw new Error("Upload failed");
 
             const data = await res.json();
             setResult({
@@ -63,57 +60,38 @@ export default function Upload() {
                 mindmap: data.mindmap || "No flow chart returned.",
             });
 
-            // Auto-save to database
-            try {
-                if (user) {
-                    await addDoc(collection(db, "records"), {
-                        userId: user.uid,
-                        type: "audio",
-                        original: data.original || "",
-                        summary: data.summary || "No summary returned.",
-                        syllables: data.syllables ? (typeof data.syllables === 'string' ? data.syllables : JSON.stringify(data.syllables)) : "",
-                        mindmap: data.mindmap || "No flow chart returned.",
-                        createdAt: serverTimestamp()
-                    });
-                }
-            } catch (dbErr) {
-                console.error("Firestore save error:", dbErr);
+            if (user) {
+                await addDoc(collection(db, "records"), {
+                    userId: user.uid,
+                    type: "audio",
+                    original: data.original || "",
+                    summary: data.summary || "No summary returned.",
+                    syllables: data.syllables ? (typeof data.syllables === 'string' ? data.syllables : JSON.stringify(data.syllables)) : "",
+                    mindmap: data.mindmap || "No flow chart returned.",
+                    createdAt: serverTimestamp()
+                });
             }
         } catch (err) {
             console.error("Upload error:", err);
             alert(`Error: ${err.message}`);
-            setResult((prev) => ({
-                ...prev,
-                summary: `❌ Error: ${err.message}`,
-            }));
         } finally {
             setLoading(false);
         }
     };
 
     const handleReadAloud = (text) => {
-        if (!window.speechSynthesis) {
-            alert("Your browser does not support text-to-speech.");
-            return;
-        }
-
+        if (!window.speechSynthesis) return;
         if (isSpeaking) {
             window.speechSynthesis.cancel();
             setIsSpeaking(false);
             return;
         }
-
         if (!text) return;
 
-        const textToRead = text.replace(/-/g, ' ');
-        const utterance = new window.SpeechSynthesisUtterance(textToRead);
+        const utterance = new window.SpeechSynthesisUtterance(text.replace(/-/g, ' '));
         utterance.rate = 0.9;
-        utterance.pitch = 1.0;
-        
         utterance.onstart = () => setIsSpeaking(true);
         utterance.onend = () => setIsSpeaking(false);
-        utterance.onerror = () => setIsSpeaking(false);
-
         window.speechSynthesis.speak(utterance);
     };
 
@@ -126,24 +104,17 @@ export default function Upload() {
         doc.setFontSize(22);
         doc.setTextColor(59, 130, 246);
         doc.text("Dyslexia Platform - Audio Analysis Report", pageWidth / 2, 20, { align: "center" });
-        
-        doc.setDrawColor(226, 232, 240);
         doc.line(margin, 25, pageWidth - margin, 25);
         
         let yPos = 40;
-
         const addSection = (title, content) => {
             if (!content) return;
-            if (yPos > 250) {
-                doc.addPage();
-                yPos = 20;
-            }
+            if (yPos > 250) { doc.addPage(); yPos = 20; }
             doc.setFontSize(16);
             doc.setTextColor(30, 41, 59);
             doc.setFont("helvetica", "bold");
             doc.text(title, margin, yPos);
             yPos += 10;
-
             doc.setFontSize(12);
             doc.setTextColor(71, 85, 105);
             doc.setFont("helvetica", "normal");
@@ -156,264 +127,151 @@ export default function Upload() {
         addSection("AI Summary", result.summary);
         addSection("Syllable Breakdown", result.syllables);
         addSection("Process Flow Chart", result.mindmap);
-
         doc.save(`Dyslexia-Upload-Report-${new Date().toLocaleDateString()}.pdf`);
     };
 
-    const tabs = ["summary", "syllables", "mindmap"];
+    const renderFormattedText = (text) => {
+        if (!text) return <p style={{ opacity: 0.6 }}>No data available yet.</p>;
+        const lines = text.split('\n').filter(line => line.trim() !== '');
+        return (
+            <ul className="dys-summary-list">
+                {lines.map((line, index) => {
+                    const cleanLine = line.replace(/^\s*[-•*]\s*/, '');
+                    const parts = cleanLine.split(/(\*\*.*?\*\*)/g);
+                    return (
+                        <li key={index} className="dys-summary-item">
+                            {parts.map((part, i) => {
+                                if (part.startsWith('**') && part.endsWith('**')) {
+                                    return <span key={i} className="dys-summary-bold">{part.slice(2, -2)}</span>;
+                                }
+                                return part;
+                            })}
+                        </li>
+                    );
+                })}
+            </ul>
+        );
+    };
 
     return (
-        <div className="dyslexia-app" style={styles.container}>
-            <div style={styles.topBar}>
-                <button onClick={() => navigate("/dyslexia", { replace: true })} style={styles.backHomeBtn}>
-                    🏠 Back to Dyslexia Home
-                </button>
-            </div>
-            <h1 style={styles.heading}>📁 UPLOAD AUDIO</h1>
+        <div className={`dyslexia-wrapper ${isDyslexicFont ? "opendyslexic-font" : ""}`}>
+            <div className="snow-background"></div>
 
-            <div style={styles.uploadBox}>
-                <input 
-                    type="file" 
-                    accept="audio/*" 
-                    onChange={handleFileChange} 
-                    id="audio-upload"
-                    style={{ display: "none" }}
-                />
-                <label htmlFor="audio-upload" style={styles.uploadLabel}>
-                    {file ? `🔔 Selected: ${file.name}` : "📂 Click to select an audio file (MP3, WAV, etc.)"}
-                </label>
-                
-                {file && (
-                    <button 
-                        onClick={handleUpload} 
-                        style={styles.processBtn}
-                        disabled={loading}
-                    >
-                        {loading ? "⏳ Transcribing..." : "🚀 Process Audio"}
-                    </button>
-                )}
-            </div>
-
-            <div style={styles.layout}>
-                <div style={styles.panel}>
-                    <h3 style={styles.panelTitle}>📝 Transcript Result</h3>
-                    <div style={styles.box}>
-                        {result.original || <span style={{ color: "#475569" }}>Transcript will appear here...</span>}
+            <nav className="dash-nav">
+                <div className="dash-brand" onClick={() => navigate("/")}>
+                    <div className="dash-logo">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                        </svg>
                     </div>
+                    <span className="dash-brand-name">DDAP</span>
                 </div>
 
-                <div style={styles.panel}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                        <div style={styles.tabs}>
-                            {tabs.map((tab) => (
-                                <button
-                                    key={tab}
-                                    onClick={() => setActiveTab(tab)}
-                                    style={{
-                                        ...styles.tabBtn,
-                                        ...(activeTab === tab ? styles.tabBtnActive : {}),
-                                    }}
-                                >
-                                    {tab === "summary" && "📄 Summary"}
-                                    {tab === "syllables" && "🔤 Syllable"}
-                                    {tab === "mindmap" && "📊 Flow Chart"}
-                                </button>
-                            ))}
+                <div className="dash-nav-right">
+                    <div className="dash-user-badge">
+                        <button onClick={() => navigate("/dashboard")} className="dash-logout-link">
+                            ← {t("backToDashboard")}
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+
+            <main className="dys-sub-main">
+                <header className="dys-sub-header">
+                    <h1 className="dys-sub-title">📁 {t("uploadMp3")}</h1>
+                    
+                    <div className="dys-panel" style={{ maxWidth: '600px', width: '100%', margin: '0 auto', textAlign: 'center' }}>
+                        <input 
+                            type="file" 
+                            accept="audio/*" 
+                            onChange={handleFileChange} 
+                            id="audio-upload"
+                            style={{ display: "none" }}
+                        />
+                        <label htmlFor="audio-upload" className="font-helper-btn" style={{ fontSize: '1.1rem', padding: '20px', display: 'block', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: '12px' }}>
+                            {file ? `🔔 Selected: ${file.name}` : "📂 Click to select an audio file (MP3, WAV)"}
+                        </label>
+                        
+                        {file && (
+                            <button 
+                                onClick={handleUpload} 
+                                className="dys-btn-upload"
+                                disabled={loading}
+                                style={{ marginTop: '20px', opacity: loading ? 0.6 : 1 }}
+                            >
+                                {loading ? "⏳ Transcribing..." : "🚀 Process Audio"}
+                            </button>
+                        )}
+                    </div>
+                </header>
+
+                <div className="dys-layout-grid">
+                    <section className="dys-panel">
+                        <h3 className="dys-panel-title">📝 Transcript Result</h3>
+                        <div className="dys-text-box">
+                            {result.original || <span style={{ opacity: 0.4 }}>Transcript will appear here...</span>}
                         </div>
-                        {result.original && (
-                            <button onClick={generatePDF} style={styles.downloadBtn}>📥 PDF</button>
-                        )}
-                    </div>
+                    </section>
 
-                    <div style={styles.box}>
-                        {loading ? (
-                            <p style={{ color: "#94a3b8" }}>⏳ Analyzing audio content...</p>
-                        ) : (
-                            <>
-                                {activeTab === "summary" && (
-                                    <div style={{ textAlign: "left" }}>
-                                        {result.summary && (
-                                            <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
-                                                <button onClick={() => handleReadAloud(result.summary)} style={styles.ttsBtn}>
-                                                    {isSpeaking ? "🛑 Stop" : "🔊 Listen"}
-                                                </button>
-                                            </div>
-                                        )}
-                                        <div style={{ color: "#cbd5e1", fontSize: "16px", lineHeight: "1.6", whiteSpace: "pre-wrap" }}>
-                                            {result.summary || <span style={{ color: "#475569" }}>No summary yet.</span>}
+                    <section className="dys-panel">
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div className="dys-tab-group">
+                                {["summary", "syllables", "mindmap"].map((tab) => (
+                                    <button 
+                                        key={tab}
+                                        className={`dys-tab-btn ${activeTab === tab ? "active" : ""}`}
+                                        onClick={() => setActiveTab(tab)}
+                                    >
+                                        {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                                    </button>
+                                ))}
+                            </div>
+                            {result.original && (
+                                <button onClick={generatePDF} className="dys-action-badge pdf">📄 PDF</button>
+                            )}
+                        </div>
+
+                        <div className="dys-text-box">
+                            {loading ? (
+                                <p style={{ opacity: 0.6 }}>⏳ Analyzing audio content...</p>
+                            ) : (
+                                <>
+                                    {activeTab === "summary" && (
+                                        <div style={{ textAlign: "left" }}>
+                                            {result.summary && (
+                                                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '15px' }}>
+                                                    <button onClick={() => handleReadAloud(result.summary)} className="dys-action-badge listen">
+                                                        {isSpeaking ? "🛑 Stop" : "🔊 Listen"}
+                                                    </button>
+                                                </div>
+                                            )}
+                                            {renderFormattedText(result.summary)}
                                         </div>
-                                    </div>
-                                )}
-                                {activeTab === "syllables" && (
-                                    <div style={{ textAlign: "left" }}>
-                                        {result.syllables && (
-                                            <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
-                                                <button onClick={() => handleReadAloud(result.syllables)} style={styles.ttsBtn}>
-                                                    {isSpeaking ? "🛑 Stop" : "🔊 Read Syllables"}
-                                                </button>
-                                            </div>
-                                        )}
-                                        <p style={{ whiteSpace: "pre-wrap", lineHeight: "2", fontSize: "16px", color: "#94a3b8" }}>
-                                            {result.syllables || <span style={{ color: "#475569" }}>No data yet.</span>}
-                                        </p>
-                                    </div>
-                                )}
-                                {activeTab === "mindmap" && (
-                                    <div style={{ textAlign: "center", paddingTop: "10px" }}>
-                                        {result.mindmap ? (
-                                            <pre style={styles.pre}>
-                                                {result.mindmap}
-                                            </pre>
-                                        ) : (
-                                            <p style={{ color: "#475569", padding: "40px" }}>No flow chart yet.</p>
-                                        )}
-                                    </div>
-                                )}
-                            </>
-                        )}
-                    </div>
+                                    )}
+                                    {activeTab === "syllables" && (
+                                        <div style={{ textAlign: "left" }}>
+                                            {result.syllables && (
+                                                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '15px' }}>
+                                                    <button onClick={() => handleReadAloud(result.syllables)} className="dys-action-badge listen">
+                                                        {isSpeaking ? "🛑 Stop" : "🔊 Read"}
+                                                    </button>
+                                                </div>
+                                            )}
+                                            <p style={{ lineHeight: "2.5" }}>{result.syllables || "No parsing data yet."}</p>
+                                        </div>
+                                    )}
+                                    {activeTab === "mindmap" && (
+                                        <pre style={{ textAlign: "center", fontSize: "0.9rem", color: "#94a3af" }}>
+                                            {result.mindmap || "No flow chart yet."}
+                                        </pre>
+                                    )}
+                                </>
+                            )}
+                        </div>
+                    </section>
                 </div>
-            </div>
+            </main>
         </div>
     );
 }
-
-const styles = {
-    container: {
-        background: "transparent",
-        color: "white",
-        minHeight: "100vh",
-        padding: "30px 20px",
-        textAlign: "center",
-        fontFamily: "'Segoe UI', sans-serif",
-    },
-    heading: {
-        fontSize: "28px",
-        fontWeight: 700,
-        marginBottom: "20px",
-        letterSpacing: "2px",
-    },
-    topBar: {
-        display: "flex",
-        justifyContent: "flex-start",
-        marginBottom: "20px",
-    },
-    backHomeBtn: {
-        background: "rgba(30, 41, 59, 0.6)",
-        border: "1px solid rgba(96, 165, 250, 0.3)",
-        color: "#94a3b8",
-        padding: "8px 16px",
-        borderRadius: "8px",
-        fontSize: "14px",
-        cursor: "pointer",
-        transition: "all 0.2s",
-        display: "flex",
-        alignItems: "center",
-        gap: "8px",
-    },
-    uploadBox: {
-        maxWidth: "600px",
-        margin: "0 auto 30px auto",
-        padding: "40px",
-        border: "2px dashed rgba(30, 41, 59, 0.5)",
-        borderRadius: "16px",
-        background: "rgba(15, 23, 42, 0.7)",
-        transition: "all 0.3s ease",
-        backdropFilter: "blur(10px)",
-    },
-    uploadLabel: {
-        display: "block",
-        cursor: "pointer",
-        color: "#94a3b8",
-        fontSize: "18px",
-        marginBottom: "20px",
-    },
-    processBtn: {
-        background: "#3b82f6",
-        color: "white",
-        border: "none",
-        padding: "12px 30px",
-        borderRadius: "8px",
-        fontSize: "16px",
-        fontWeight: "600",
-        cursor: "pointer",
-        transition: "all 0.2s",
-    },
-    layout: {
-        display: "flex",
-        justifyContent: "center",
-        gap: "30px",
-        marginTop: "30px",
-        flexWrap: "wrap",
-    },
-    panel: {
-        width: "420px",
-        textAlign: "left",
-    },
-    panelTitle: {
-        marginBottom: "8px",
-        fontSize: "16px",
-        color: "#94a3b8",
-    },
-    box: {
-        background: "rgba(15, 23, 42, 0.7)",
-        borderRadius: "12px",
-        padding: "16px",
-        minHeight: "250px",
-        fontSize: "14px",
-        lineHeight: "1.7",
-        overflowY: "auto",
-        maxHeight: "500px",
-        border: "1px solid rgba(30, 41, 59, 0.5)",
-        backdropFilter: "blur(10px)",
-    },
-    tabs: {
-        display: "flex",
-        gap: "8px",
-        flex: 1,
-    },
-    tabBtn: {
-        flex: 1,
-        padding: "8px 0",
-        border: "1px solid #1e293b",
-        borderRadius: "8px",
-        background: "#0f172a",
-        color: "#94a3b8",
-        cursor: "pointer",
-        fontSize: "13px",
-        fontWeight: 500,
-    },
-    tabBtnActive: {
-        background: "#3b82f6",
-        color: "white",
-        border: "1px solid #3b82f6",
-    },
-    ttsBtn: {
-        background: "rgba(59, 130, 246, 0.15)",
-        border: "1px solid rgba(59, 130, 246, 0.4)",
-        color: "#60a5fa",
-        padding: "6px 14px",
-        borderRadius: "20px",
-        fontSize: "12px",
-        cursor: "pointer",
-    },
-    downloadBtn: {
-        background: "rgba(16, 185, 129, 0.15)",
-        border: "1px solid rgba(16, 185, 129, 0.4)",
-        color: "#10b981",
-        padding: "8px 16px",
-        borderRadius: "8px",
-        fontSize: "12px",
-        cursor: "pointer",
-        marginLeft: "10px",
-    },
-    pre: {
-        whiteSpace: "pre-wrap", 
-        wordBreak: "break-word", 
-        fontSize: "14px", 
-        lineHeight: "1.6",
-        color: "#e2e8f0",
-        fontFamily: "monospace",
-        textAlign: "center"
-    }
-};

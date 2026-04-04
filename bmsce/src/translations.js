@@ -9,6 +9,9 @@ export const translations = {
         welcome: "Welcome",
         welcomeBack: "Welcome back!",
         whatToDo: "What would you like to do?",
+        backToDashboard: "Back to Dashboard",
+        fontHelper: "Feeling difficult to read? Try this font instead",
+        defaultFont: "Switch back to default font",
         exploreDisorders: "Select an option below to begin",
         
         // Hero Section
@@ -57,6 +60,13 @@ export const translations = {
         startDyscalculia: "Start Dyscalculia Mode",
         startDyslexia: "Start Dyslexia Mode",
         
+        // Dyslexia Diagnostic Tools
+        liveTranscription: "Live Transcription",
+        uploadMp3: "Audio Upload",
+        uploadPdf: "PDF Analysis",
+        clickToRecord: "Click here to Record",
+        stopRecording: "Stop Recording",
+
         // Features
         aboutUs: "About Us",
         features: "Features",
@@ -72,6 +82,9 @@ export const translations = {
         welcome: "स्वागत है",
         welcomeBack: "वापसी पर आपका स्वागत है!",
         whatToDo: "आप क्या करना चाहेंगे?",
+        backToDashboard: "डैशबोर्ड पर वापस जाएं",
+        fontHelper: "अगर पढ़ने में दिक्कत हो रही है? तो इस फ़ॉन्ट को आज़माएँ",
+        defaultFont: "डिफ़ॉल्ट फ़ॉन्ट पर वापस जाएं",
         exploreDisorders: "शुरू करने के लिए नीचे एक विकल्प चुनें",
         
         // Hero Section
@@ -120,6 +133,13 @@ export const translations = {
         startDyscalculia: "डिस्कलकुलिया मोड शुरू करें",
         startDyslexia: "डिस्लेक्सिया मोड शुरू करें",
         
+        // Dyslexia Diagnostic Tools
+        liveTranscription: "लाइव ट्रांसक्रिप्शन",
+        uploadMp3: "ऑडियो अपलोड",
+        uploadPdf: "पीडीएफ विश्लेषण",
+        clickToRecord: "रिकॉर्ड करने के लिए यहां क्लिक करें",
+        stopRecording: "रिकॉर्डिंग बंद करें",
+
         // Features
         aboutUs: "हमारे बारे में",
         features: "विशेषताएं",
@@ -135,6 +155,9 @@ export const translations = {
         welcome: "வரவேற்கிறோம்",
         welcomeBack: "மீண்டும் வருக!",
         whatToDo: "நீங்கள் என்ன செய்ய விரும்புகிறீர்கள்?",
+        backToDashboard: "டேஷ்போர்டுக்கு திரும்பு",
+        fontHelper: "படிக்க சிரமமாக உள்ளதா? இந்த எழுத்துருவை முயற்சிக்கவும்",
+        defaultFont: "இயல்புநிலை எழுத்துருவுக்கு மாறவும்",
         exploreDisorders: "தொடங்க கீழே உள்ள விருப்பத்தைத் தேர்ந்தெடுக்கவும்",
         
         // Hero Section
@@ -183,6 +206,13 @@ export const translations = {
         startDyscalculia: "டிஸ்கால்குலியா பயன்முறையைத் தொடங்கவும்",
         startDyslexia: "டிஸ்லெக்சியா பயன்முறையைத் தொடங்கவும்",
         
+        // Dyslexia Diagnostic Tools
+        liveTranscription: "நேரடி டிரான்ஸ்கிரிப்ஷன்",
+        uploadMp3: "ஆடியோ பதிவேற்றம்",
+        uploadPdf: "PDF பகுப்பாய்வு",
+        clickToRecord: "பதிவு செய்ய இங்கே கிளிக் செய்யவும்",
+        stopRecording: "பதிவை நிறுத்து",
+
         // Features
         aboutUs: "எங்களைப் பற்றி",
         features: "சிறப்பு",
@@ -198,6 +228,9 @@ export const translations = {
         welcome: "స్వాగతం",
         welcomeBack: "తిరిగి స్వాగతం!",
         whatToDo: "మీరు ఏమి చేయాలనుకుంటున్నారు?",
+        backToDashboard: "డ్యాష్‌బోర్డ్‌కు తిరిగి వెళ్ళు",
+        fontHelper: "చదవడానికి కష్టంగా ఉందా? ఈ ఫాంట్‌ని ప్రయత్నించండి",
+        defaultFont: "డిఫాల్ట్ ఫాంట్‌కి తిరిగి వెళ్ళు",
         exploreDisorders: "ప్రారంభించడానికి దిగువన ఒక ఎంపికను ఎంచుకోండి",
         
         // Hero Section
@@ -246,6 +279,13 @@ export const translations = {
         startDyscalculia: "డిస్‌కాల్‌క్యూలియా మోడ్‌ను ప్రారంభించండి",
         startDyslexia: "డిస్లెక్సియా మోడ్‌ను ప్రారంభించండి",
         
+        // Dyslexia Diagnostic Tools
+        liveTranscription: "లైవ్ ట్రాన్స్క్రిప్షన్",
+        uploadMp3: "ఆడియో అప్‌లోడ్",
+        uploadPdf: "PDF విశ్లేషణ",
+        clickToRecord: "రికార్డ్ చేయడానికి ఇక్కడ క్లిక్ చేయండి",
+        stopRecording: "రికార్డింగ్ ఆపండి",
+
         // Features
         aboutUs: "ನಾವು",
         features: "లక్షణాలు",
@@ -261,6 +301,9 @@ export const translations = {
         welcome: "ಸ್ವಾಗತ",
         welcomeBack: "ಮರಳಿ ಸ್ವಾಗತ!",
         whatToDo: "ನೀವು ಏನು ಮಾಡಲು ಬಯಸುವಿರಿ?",
+        backToDashboard: "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್‌ಗೆ ಹಿಂತಿರುಗಿ",
+        fontHelper: "ಓದಲು ಕಷ್ಟವಾಗುತ್ತಿದೆಯೇ? ಈ ಫಾಂಟ್ ಅನ್ನು ಪ್ರಯತ್ನಿಸಿ",
+        defaultFont: "ಡೀಫಾಲ್ಟ್ ಫಾಂಟ್‌ಗೆ ಹಿಂತಿರುಗಿ",
         exploreDisorders: "ಪ್ರಾರಂಭಿಸಲು ಕೆಳಗಿನ ಆಯ್ಕೆಯನ್ನು ಆರಿಸಿ",
         
         // Hero Section
@@ -309,6 +352,13 @@ export const translations = {
         startDyscalculia: "ಡಿಸ್‌ಕಲ್‌ಕುಲಿಯಾ ಮೋಡ್ ಪ್ರಾರಂಭಿಸಿ",
         startDyslexia: "ಡಿಸ್ಲೆಕ್ಸಿಯಾ ಮೋಡ್ ಪ್ರಾರಂಭಿಸಿ",
         
+        // Dyslexia Diagnostic Tools
+        liveTranscription: "ಲೈವ್ ಟ್ರಾನ್ಸ್‌ಕ್ರಿಪ್ಷನ್",
+        uploadMp3: "ಆಡಿಯೋ ಅಪ್‌ಲೋಡ್",
+        uploadPdf: "PDF ವಿಶ್ಲೇಷಣೆ",
+        clickToRecord: "ರೆಕಾರ್ಡ್ ಮಾಡಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ",
+        stopRecording: "ರೆಕಾರ್ಡಿಂಗ್ ನಿಲ್ಲಿಸಿ",
+
         // Features
         aboutUs: "ನಮ್ಮ ಬಗ್ಗೆ",
         features: "ವೈಶಿಷ್ಟ್ಯಗಳು",
@@ -324,6 +374,9 @@ export const translations = {
         welcome: "স্বাগতম",
         welcomeBack: "ফিরে আসার জন্য স্বাগতম!",
         whatToDo: "আপনি কি করতে চান?",
+        backToDashboard: "ড্যাশবোর্ডে ফিরে যান",
+        fontHelper: "পড়তে অসুবিধা হচ্ছে? তবে এই ফন্টটি চেষ্টা করুন",
+        defaultFont: "ডিফল্ট ফন্টে ফিরে যান",
         exploreDisorders: "শুরু করার জন্য নিচে একটি বিকল্প চয়ন করুন",
         
         // Hero Section
@@ -372,6 +425,13 @@ export const translations = {
         startDyscalculia: "ডিসক্যালকুলিয়া মোড শুরু করুন",
         startDyslexia: "ডিসলেক্সিয়া মোড শুরু করুন",
         
+        // Dyslexia Diagnostic Tools
+        liveTranscription: "লাইভ ট্রান্সক্রিপশন",
+        uploadMp3: "অডিও আপলোড",
+        uploadPdf: "পিডিএফ বিশ্লেষণ",
+        clickToRecord: "রেকর্ড করতে এখানে ক্লিক করুন",
+        stopRecording: "রেকর্ডিং বন্ধ করুন",
+
         // Features
         aboutUs: "আমাদের সম্পর্কে",
         features: "বৈশিষ্ট্যসমূহ",
@@ -387,6 +447,9 @@ export const translations = {
         welcome: "स्वागत आहे",
         welcomeBack: "पुन्हा स्वागत आहे!",
         whatToDo: "तुम्हाला काय करायला आवडेल?",
+        backToDashboard: "डॅशबोर्डवर परत जा",
+        fontHelper: "वाचायला त्रास होतोय? तर हा फॉन्ट वापरून पहा",
+        defaultFont: "डिफॉल्ट फॉन्टवर परत जा",
         exploreDisorders: "सुरू करण्यासाठी खालील पर्याय निवडा",
         
         // Hero Section
@@ -433,6 +496,13 @@ export const translations = {
         assessment: "मूल्यांकन",
         start: "सुरू करा",
         
+        // Dyslexia Diagnostic Tools
+        liveTranscription: "लाइव्ह ट्रान्सक्रिप्शन",
+        uploadMp3: "ऑडिओ अपलोड",
+        uploadPdf: "पीडीएफ विश्लेषण",
+        clickToRecord: "रेकॉर्ड करण्यासाठी येथे क्लिक करा",
+        stopRecording: "रेकॉर्डिंग थांबवा",
+
         // Features
         aboutUs: "आम्हाबद्दल",
         features: "वैशिष्ट्ये",
