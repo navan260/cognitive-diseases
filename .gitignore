@@ -54,4 +54,3 @@ backend/*$py.class
 demo.py
 app_streamlit.py
 faces.json
-db.py
