@@ -51,3 +51,7 @@ __pycache__/
 backend/__pycache__/
 backend/*.py[cod]
 backend/*$py.class
+demo.py
+app_streamlit.py
+faces.json
+db.py

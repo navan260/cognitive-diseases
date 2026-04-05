@@ -15,6 +15,11 @@ from syllable import process_text
 from summary import summarize
 from mindmap import generate_mindmap
 
+from db import add_face, query_face
+import face_recognition
+import numpy as np
+from PIL import Image
+
 app = Flask(__name__)
 CORS(app)
 
@@ -196,6 +201,62 @@ def generate_story():
     except Exception as e:
         print(f"[ERROR] Gemini generate_story failed: {e}")
         return jsonify({"text": "Error generating story", "error": str(e)}), 500
+
+@app.route('/propognasia/enroll', methods=['POST'])
+def propognasia_enroll():
+    if 'file' not in request.files:
+        return jsonify({"error": "No file part"}), 400
+    
+    file = request.files['file']
+    name = request.form.get('name')
+    namespace = request.form.get('userId')
+    
+    if not name or not namespace:
+        return jsonify({"error": "Missing name or userId"}), 400
+        
+    try:
+        img = Image.open(file).convert("RGB")
+        img_array = np.array(img)
+        encodings = face_recognition.face_encodings(img_array)
+        
+        if len(encodings) > 0:
+            add_face(name, encodings[0], namespace=namespace)
+            return jsonify({"success": True, "message": f"Enrolled {name}"})
+        else:
+            return jsonify({"error": "No face detected"}), 400
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/propognasia/identify', methods=['POST'])
+def propognasia_identify():
+    if 'file' not in request.files:
+        return jsonify({"error": "No file part"}), 400
+        
+    file = request.files['file']
+    namespace = request.form.get('userId')
+    
+    if not namespace:
+        return jsonify({"error": "Missing userId"}), 400
+        
+    try:
+        img = Image.open(file).convert("RGB")
+        img_array = np.array(img)
+        face_locations = face_recognition.face_locations(img_array)
+        face_encodings = face_recognition.face_encodings(img_array, face_locations)
+        
+        if len(face_encodings) == 0:
+            return jsonify({"message": "No face detected", "matches": []})
+            
+        results = []
+        for encoding in face_encodings:
+            person_name = query_face(encoding, namespace=namespace)
+            results.append(person_name)
+            
+        return jsonify({"success": True, "matches": results})
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)

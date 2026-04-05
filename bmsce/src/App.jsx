@@ -18,6 +18,11 @@ import DyslexiaPdfUpload from "./dyslexia/pages/PdfUpload";
 import DycalculiaHome from "./dycalculia/pages/Home";
 import DycalculiaSmartTest from "./dycalculia/features/smartTest/tests/SmartTest";
 
+// Import Propognasia Pages
+import PropognasiaHome from "./propognasia/pages/Home";
+import PropognasiaEnroll from "./propognasia/pages/Enroll";
+import PropognasiaIdentify from "./propognasia/pages/Identify";
+
 export default function App() {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -70,6 +75,11 @@ export default function App() {
                 {/* Dycalculia Routes */}
                 <Route path="/dycalculia" element={<DycalculiaHome />} />
                 <Route path="/dycalculia/test/:testType" element={<DycalculiaSmartTest />} />
+                
+                {/* Propognasia Routes */}
+                <Route path="/propognasia" element={<PropognasiaHome />} />
+                <Route path="/propognasia/enroll" element={<PropognasiaEnroll />} />
+                <Route path="/propognasia/identify" element={<PropognasiaIdentify />} />
             </Routes>
         </LanguageProvider>
     );

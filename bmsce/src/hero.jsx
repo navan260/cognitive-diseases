@@ -92,6 +92,25 @@ export default function Hero({ user }) {
                             {t("startDyslexia")}
                         </button>
                     </div>
+
+                    {/* Prosopagnosia Card */}
+                    <div className="dash-mode-card">
+                        <div className="mode-icon-container dyslexia-glow">
+                            <svg className="mode-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                <circle cx="12" cy="8" r="5" />
+                                <path d="M20 21a8 8 0 0 0-16 0" />
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                            </svg>
+                        </div>
+                        <h2 className="mode-name">Prosopagnosia</h2>
+                        <p className="mode-desc">Face recognition and memory assistance tools to help identify individuals.</p>
+                        <button 
+                            onClick={() => navigate("/propognasia")} 
+                            className="mode-btn btn-dyslexia"
+                        >
+                            Start Prosopagnosia
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
