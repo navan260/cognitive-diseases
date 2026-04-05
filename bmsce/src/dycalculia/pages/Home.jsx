@@ -21,15 +21,15 @@ export default function Home() {
     if (showStoryMode) return <StoryMode onBack={() => setShowStoryMode(false)} />;
 
     const testsData = [
-        { id: "dot", icon: "🔢", title: t("dotsComparison"), description: t("dotsComparisonDesc") },
-        { id: "numberline", icon: "📏", title: t("numberLine"), description: t("numberLineDesc") },
-        { id: "arithmetic", icon: "🧮", title: t("arithmeticTest"), description: t("arithmeticTestDesc") },
+        { id: "dot", icon: "🔢", title: t("Dots Comparison"), description: t("Dots Comparison Desc") },
+        { id: "numberline", icon: "📏", title: t("Number Line"), description: t("Number Line Desc") },
+        { id: "arithmetic", icon: "🧮", title: t("Arithmetic Test"), description: t("Arithmetic Test Desc") },
     ];
 
     const featuresData = [
-        { icon: "📸", title: t("arObjectCounter"), description: t("arObjectCounterDesc"), action: () => setShowARCounter(true) },
-        { icon: "🎵", title: t("musicMathGame"), description: t("musicMathGameDesc"), action: () => setShowMusicGame(true) },
-        { icon: "📖", title: t("storyMode"), description: t("storyModeDesc"), action: () => setShowStoryMode(true) },
+        { icon: "📸", title: t("AR Object Counter"), description: t("AR Object Counter Desc"), action: () => setShowARCounter(true) },
+        { icon: "🎵", title: t("Music Math Game"), description: t("Music Math Game Desc"), action: () => setShowMusicGame(true) },
+        { icon: "📖", title: t("Story Mode"), description: t("Story Mode Desc"), action: () => setShowStoryMode(true) },
     ];
 
     return (
@@ -55,7 +55,6 @@ export default function Home() {
             <main className="dy-container">
                 <header className="dy-header">
                     <h1 className="dy-title">{t("dyscalculiaMode")}</h1>
-                    <p className="dy-subtitle">{t("headerSubtitle")}</p>
                 </header>
 
                 {/* Tests Carousel */}
@@ -64,13 +63,13 @@ export default function Home() {
                         {t("assessmentTests")}
                     </h2>
                     <div className="dy-carousel-container">
-                        <button 
-                            className="dy-nav-btn" 
+                        <button
+                            className="dy-nav-btn"
                             onClick={() => setTestsCarouselIndex((prev) => (prev - 1 + testsData.length) % testsData.length)}
                         >
                             ❮
                         </button>
-                        
+
                         <div className="dy-carousel-viewport">
                             <div className="dy-carousel-track" style={{ transform: `translateX(-${testsCarouselIndex * 100}%)` }}>
                                 {testsData.map((test) => (
@@ -86,8 +85,8 @@ export default function Home() {
                             </div>
                         </div>
 
-                        <button 
-                            className="dy-nav-btn" 
+                        <button
+                            className="dy-nav-btn"
                             onClick={() => setTestsCarouselIndex((prev) => (prev + 1) % testsData.length)}
                         >
                             ❯
@@ -101,8 +100,8 @@ export default function Home() {
                         {t("featuresSection")}
                     </h2>
                     <div className="dy-carousel-container">
-                        <button 
-                            className="dy-nav-btn" 
+                        <button
+                            className="dy-nav-btn"
                             onClick={() => setFeaturesCarouselIndex((prev) => (prev - 1 + featuresData.length) % featuresData.length)}
                         >
                             ❮
@@ -123,8 +122,8 @@ export default function Home() {
                             </div>
                         </div>
 
-                        <button 
-                            className="dy-nav-btn" 
+                        <button
+                            className="dy-nav-btn"
                             onClick={() => setFeaturesCarouselIndex((prev) => (prev + 1) % featuresData.length)}
                         >
                             ❯
