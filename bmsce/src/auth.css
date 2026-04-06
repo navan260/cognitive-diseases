@@ -18,7 +18,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 1.5rem; /* 24px */
   position: relative;
   z-index: 1;
 }
@@ -26,16 +26,16 @@ body {
 /* ── Card (Enhanced Glassmorphism) ── */
 .auth-card {
   width: 100%;
-  max-width: 440px;
+  max-width: 27.5rem; /* 440px */
   background: rgba(15, 23, 42, 0.75); /* Matching landing content sections */
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 28px;
+  border-radius: 1.75rem; /* 28px */
   box-shadow: 
     0 25px 50px -12px rgba(0, 0, 0, 0.5),
     0 0 0 1px rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  padding: 48px 40px;
+  padding: 3rem 2.5rem; /* 48px 40px */
   animation: card-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 

@@ -1,25 +1,8 @@
-/* ── Dyslexia Mode 'Inky Midnight' Theme ── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-@import url('https://cdn.jsdelivr.net/npm/@fontsource/opendyslexic@latest/index.css');
-
-/* ── OpenDyslexic Scaling System ── */
-:root {
-  --dys-scale: 1;
-}
-
-:root.opendyslexic-font {
-  --dys-scale: 0.88; /* Scales down the UI to fit the ~20% larger OpenDyslexic font */
-}
-
-@media (max-width: 768px) {
-  :root.opendyslexic-font {
-    --dys-scale: 0.82; /* More aggressive scaling on mobile to prevent overflows */
-  }
-}
+/* ── OpenDyslexic Scaling System Variables ── */
+/* Inherited via Header.css for app-wide consistency */
 
 .opendyslexic-font {
   font-family: 'OpenDyslexic', sans-serif !important;
-  font-size: calc(100% * var(--dys-scale)) !important;
 }
 
 .opendyslexic-font * {
@@ -214,8 +197,8 @@
 }
 
 .dys-carousel-viewport {
-  width: 380px;
-  height: 280px;
+  width: 23.75rem; /* 380px */
+  height: 17.5rem; /* 280px */
   position: relative;
   cursor: pointer;
   perspective: 1200px;
@@ -224,8 +207,8 @@
 .dys-carousel-frame {
   background: rgba(15, 23, 42, 0.7);
   border: 1px solid rgba(59, 130, 246, 0.2);
-  border-radius: 32px;
-  padding: 40px;
+  border-radius: 2rem;
+  padding: 2.5rem;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -245,10 +228,10 @@
 }
 
 .dys-icon-image {
-  height: 100px;
+  height: 6.25rem; /* 100px */
   width: auto;
   object-fit: contain;
-  margin-bottom: 24px;
+  margin-bottom: 1.5rem;
   filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
 }
 
@@ -268,14 +251,14 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
-  width: 60px;
-  height: 60px;
+  width: 3.75rem; /* 60px */
+  height: 3.75rem;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 1.5rem;
   transition: all 0.2s;
   backdrop-filter: blur(8px);
 }
@@ -339,8 +322,8 @@
 
 .records-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(18.75rem, 1fr));
+  gap: 1.5rem;
 }
 
 .record-card {
@@ -414,11 +397,11 @@
 .dys-modal-content {
   background: rgba(15, 23, 42, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 32px;
+  border-radius: 2rem;
   width: 100%;
-  max-width: 900px;
+  max-width: 56.25rem; /* 900px */
   max-height: 85vh;
-  padding: 32px;
+  padding: 2rem;
   position: relative;
   overflow-y: auto;
   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
@@ -537,11 +520,11 @@
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 24px;
-  padding: 32px;
+  border-radius: 1.5rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.25rem;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
   transition: border-color 0.3s;
 }

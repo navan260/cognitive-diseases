@@ -53,7 +53,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 24px 40px;
+  padding: 1.5rem 2.5rem; /* 24px 40px */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -94,16 +94,16 @@
 
 /* ── Main Layout ── */
 .dy-container {
-  max-width: 1200px;
+  max-width: 75rem; /* 1200px */
   margin: 0 auto;
-  padding: 160px 24px 80px;
+  padding: 10rem 1.5rem 5rem; /* 160px 24px 80px */
   position: relative;
   z-index: 10;
 }
 
 .dy-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 3.75rem; /* 60px */
   animation: dy-fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
@@ -111,7 +111,7 @@
   font-size: 2.2rem;
   font-weight: 900;
   letter-spacing: -0.02em;
-  margin-bottom: 12px;
+  margin-bottom: 0.75rem; /* 12px */
   background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -121,7 +121,7 @@
 .dy-subtitle {
   font-size: 1rem;
   color: var(--dy-text-secondary);
-  max-width: 500px;
+  max-width: 31.25rem; /* 500px */
   margin: 0 auto;
 }
 
@@ -131,8 +131,8 @@
   backdrop-filter: blur(32px);
   -webkit-backdrop-filter: blur(32px);
   border: 1px solid var(--dy-glass-border);
-  border-radius: 28px;
-  padding: 32px;
+  border-radius: 1.75rem; /* 28px */
+  padding: 2rem; /* 32px */
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
@@ -141,16 +141,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 40px;
-  margin: 40px 0;
+  gap: 2.5rem; /* 40px */
+  margin: 2.5rem 0;
 }
 
 .dy-carousel-viewport {
-  width: 420px;
-  height: 320px;
+  width: 28rem; /* 448px (Increased from 420px) */
+  height: 22.5rem; /* 360px */
   position: relative;
   overflow: hidden;
-  border-radius: 32px;
+  border-radius: 2rem; /* 32px */
 }
 
 .dy-carousel-track {
@@ -161,10 +161,10 @@
 
 .dy-card {
   flex: 0 0 100%;
-  padding: 40px;
+  padding: 2.5rem; /* 40px */
   background: var(--dy-glass-bg);
   border: 1px solid var(--dy-glass-border);
-  border-radius: 32px;
+  border-radius: 2rem; /* 32px */
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -185,11 +185,14 @@
   color: var(--dy-text-secondary);
   line-height: 1.6;
   flex-grow: 1; /* Push the action link to bottom */
+  font-size: 0.95rem; /* Slightly smaller to fit more text */
+  overflow: hidden;
 }
 
 .dy-card span, 
 .dy-card .start-link-text {
-  margin-top: 24px;
+  margin-top: 1.5rem; /* 24px */
+  margin-bottom: 0.5rem; /* Ensure it stays away from the bottom edge */
   display: block;
 }
 
@@ -197,13 +200,13 @@
   background: rgba(37, 99, 235, 0.15);
   border: 1px solid rgba(37, 99, 235, 0.3);
   color: var(--dy-sapphire-main);
-  width: 56px;
-  height: 56px;
+  width: 3.5rem; /* 56px */
+  height: 3.5rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 1.25rem;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -224,22 +227,22 @@
 .dy-performance-badge {
   display: flex;
   align-items: center;
-  gap: 24px;
-  padding: 32px;
+  gap: 1.5rem;
+  padding: 2rem;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--dy-glass-border);
-  border-radius: 24px;
-  margin-bottom: 32px;
+  border-radius: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .dy-level-circle {
-  width: 64px;
-  height: 64px;
+  width: 4rem; /* 64px */
+  height: 4rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 1.5rem;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -251,10 +254,10 @@
 }
 
 .dy-stat-box {
-  padding: 24px;
+  padding: 1.5rem;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--dy-glass-border);
-  border-radius: 20px;
+  border-radius: 1.25rem;
   text-align: center;
 }
 
@@ -380,17 +383,17 @@
 }
 
 .dt-dot-box {
-  width: 240px;
-  height: 240px;
+  width: 15rem; /* 240px */
+  height: 15rem;
   background: var(--dy-glass-bg);
   border: 2px solid var(--dy-glass-border);
-  border-radius: 20px;
+  border-radius: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   cursor: pointer;
-  padding: 10px;
+  padding: 0.625rem;
 }
 
 .dt-dot-box:not(:disabled):hover {
@@ -562,8 +565,8 @@
 .at-option-btn {
   background: rgba(15, 23, 42, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 16px;
-  border-radius: 16px;
+  padding: 1rem;
+  border-radius: 1rem;
   font-size: 1.5rem;
   font-weight: 800;
   color: white;
@@ -626,9 +629,9 @@
   }
 
   .dt-dot-box {
-    width: 120px;
-    height: 120px;
-    border-radius: 16px;
+    width: 7.5rem; /* 120px */
+    height: 7.5rem;
+    border-radius: 1rem;
   }
 
   /* Number Line Mobile */
@@ -739,8 +742,8 @@
   }
 
   .dy-carousel-viewport {
-    width: 280px;
-    height: 260px;
+    width: 17.5rem; /* 280px */
+    height: 16.25rem; /* 260px */
   }
 
   .dy-card-icon {
@@ -757,9 +760,9 @@
   }
 
   .dy-nav-btn {
-    width: 44px;
-    height: 44px;
-    font-size: 16px;
+    width: 2.75rem; /* 44px */
+    height: 2.75rem;
+    font-size: 1rem;
   }
 
   .dy-carousel-container {

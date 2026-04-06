@@ -1,0 +1,25 @@
+/* ── Global Styles & UI Scaling ── */
+:root {
+  /* Default base font size for the application */
+  font-size: 16px; 
+}
+
+@media (min-width: 1024px) {
+  :root {
+    /* Slightly scale down the UI on desktop as requested */
+    font-size: 15px; 
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure all elements inherit box-sizing */
+*, *::before, *::after {
+  box-sizing: inherit;
+}
