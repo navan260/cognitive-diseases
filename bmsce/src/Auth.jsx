@@ -94,6 +94,7 @@ export default function Auth() {
         try {
             await signInWithPopup(auth, googleProvider);
         } catch (err) {
+            console.error("Google Sign-In Error:", err);
             const msg = getFriendlyMessage(err);
             if (msg) setError(msg);
         }
