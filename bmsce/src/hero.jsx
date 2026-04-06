@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { logout } from "./auth";
 import "./hero.css";
 import { useLanguage } from "./LanguageContext";
-import { getTranslation, languages } from "./translations";
+import { getTranslation } from "./translations";
 
 export default function Hero({ user }) {
     const navigate = useNavigate();
@@ -14,50 +13,6 @@ export default function Hero({ user }) {
     return (
         <div className="dashboard-wrapper">
             <div className="snow-background"></div>
-
-            {/* Dashboard Navbar */}
-            <nav className="dash-nav">
-                <div className="dash-nav-left">
-                    <div className="dash-brand">
-                        <svg className="dash-logo" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-1.54Z" />
-                            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-1.54Z" />
-                        </svg>
-                        <span className="dash-brand-name">DDAP</span>
-                    </div>
-                </div>
-
-                <div className="dash-nav-right">
-                    <div className="dash-lang-picker">
-                        <svg className="lang-globe-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <circle cx="12" cy="12" r="10" />
-                            <line x1="2" y1="12" x2="22" y2="12" />
-                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                        </svg>
-                        <select
-                            value={language}
-                            onChange={(e) => changeLanguage(e.target.value)}
-                            className="dash-lang-select-small"
-                        >
-                            {languages.map(lang => (
-                                <option key={lang.code} value={lang.code}>
-                                    {lang.nativeName.split(' ')[0]}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-
-                    <div className="dash-user-actions">
-                        <button onClick={logout} className="dash-logout-btn" title={t("logout")}>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                                <polyline points="16 17 21 12 16 7" />
-                                <line x1="21" y1="12" x2="9" y2="12" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </nav>
 
             <div className="dashboard-main">
                 <header className="dash-header">

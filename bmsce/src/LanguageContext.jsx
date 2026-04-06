@@ -23,6 +23,14 @@ export const LanguageProvider = ({ children }) => {
         localStorage.setItem("isDyslexicFont", newState);
     };
 
+    React.useEffect(() => {
+        if (isDyslexicFont) {
+            document.documentElement.classList.add("opendyslexic-font");
+        } else {
+            document.documentElement.classList.remove("opendyslexic-font");
+        }
+    }, [isDyslexicFont]);
+
     const t = (key) => getTranslation(language, key);
 
     return (

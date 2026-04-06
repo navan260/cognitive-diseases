@@ -125,7 +125,7 @@ export default function ArithmeticTest({ onFinish }) {
   return (
     <div className="at-root">
       <header className="at-header">
-        <p className="at-instruction" style={{ fontSize: '1.2rem', marginBottom: '16px' }}>
+        <p className="at-instruction">
           Solve the <strong>math problem</strong>
         </p>
         <div className="at-meta">

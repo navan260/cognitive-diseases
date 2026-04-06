@@ -21,40 +21,24 @@ export default function Home() {
     if (showStoryMode) return <StoryMode onBack={() => setShowStoryMode(false)} />;
 
     const testsData = [
-        { id: "dot", icon: "🔢", title: t("Dots Comparison"), description: t("Dots Comparison Desc") },
-        { id: "numberline", icon: "📏", title: t("Number Line"), description: t("Number Line Desc") },
-        { id: "arithmetic", icon: "🧮", title: t("Arithmetic Test"), description: t("Arithmetic Test Desc") },
+        { id: "dot", icon: "🔢", title: t("dotsComparison"), description: t("dotsComparisonDesc") },
+        { id: "numberline", icon: "📏", title: t("numberLine"), description: t("numberLineDesc") },
+        { id: "arithmetic", icon: "🧮", title: t("arithmeticTest"), description: t("arithmeticTestDesc") },
     ];
 
     const featuresData = [
-        { icon: "📸", title: t("AR Object Counter"), description: t("AR Object Counter Desc"), action: () => setShowARCounter(true) },
-        { icon: "🎵", title: t("Music Math Game"), description: t("Music Math Game Desc"), action: () => setShowMusicGame(true) },
-        { icon: "📖", title: t("Story Mode"), description: t("Story Mode Desc"), action: () => setShowStoryMode(true) },
+        { icon: "📸", title: t("arCounter"), description: t("arCounterDesc"), action: () => setShowARCounter(true) },
+        { icon: "🎵", title: t("musicMath"), description: t("musicMathDesc"), action: () => setShowMusicGame(true) },
+        { icon: "📖", title: t("storyMode"), description: t("storyModeDesc"), action: () => setShowStoryMode(true) },
     ];
 
     return (
         <div className="dycalculia-wrapper">
             <div className="snow-background"></div>
 
-            {/* Dashboard Navbar */}
-            <nav className="dy-navbar">
-                <Link to="/dashboard" className="dy-nav-logo" style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold', fontSize: '1.2rem', color: 'white', textDecoration: 'none' }}>
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}>
-                        <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-1.54Z" />
-                        <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-1.54Z" />
-                    </svg>
-                    DDAP
-                </Link>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                    <Link to="/dashboard" className="back-dashboard-btn">
-                        ← {t("backToDashboard") || "Back to Dashboard"}
-                    </Link>
-                </div>
-            </nav>
-
             <main className="dy-container">
                 <header className="dy-header">
-                    <h1 className="dy-title">{t("Dyscalculia Mode")}</h1>
+                    <h1 className="dy-title">{t("dyscalculiaMode")}</h1>
                 </header>
 
                 {/* Tests Carousel */}
@@ -77,7 +61,7 @@ export default function Home() {
                                         <div className="dy-card-icon">{test.icon}</div>
                                         <h3>{test.title}</h3>
                                         <p>{test.description}</p>
-                                        <span style={{ color: '#3b82f6', fontWeight: '700', marginTop: '24px' }}>
+                                        <span className="start-link-text" style={{ color: '#3b82f6', fontWeight: '700' }}>
                                             {t("startTest")} ➔
                                         </span>
                                     </Link>
@@ -114,7 +98,7 @@ export default function Home() {
                                         <div className="dy-card-icon">{feature.icon}</div>
                                         <h3>{feature.title}</h3>
                                         <p>{feature.description}</p>
-                                        <span style={{ color: '#3b82f6', fontWeight: '700', marginTop: '24px' }}>
+                                        <span className="start-link-text" style={{ color: '#3b82f6', fontWeight: '700' }}>
                                             {t("start")} ➔
                                         </span>
                                     </div>

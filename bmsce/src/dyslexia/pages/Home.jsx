@@ -121,35 +121,13 @@ const Home = () => {
         <div className={`dyslexia-wrapper ${isDyslexicFont ? "opendyslexic-font" : ""}`}>
             <div className="snow-background"></div>
 
-            {/* Standard Platform Navbar */}
-            <nav className="dash-nav">
-                <div className="dash-nav-left" onClick={() => navigate("/dashboard")}>
-                    <div className="dash-brand">
-                        <svg className="dash-logo" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-1.54Z" />
-                            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-1.54Z" />
-                        </svg>
-                        <span className="dash-brand-name">DDAP</span>
-                    </div>
-                </div>
-
-                <div className="dash-nav-right">
-                    <div className="dash-user-badge">
-                        <button onClick={() => navigate("/dashboard")} className="dash-logout-link">
-                            ← {t("backToDashboard")}
-                        </button>
-                    </div>
-                </div>
-            </nav>
-
-            <div className="font-helper-bar">
-                <button onClick={toggleDyslexicFont} className="font-helper-btn">
-                    {isDyslexicFont ? t("defaultFont") : t("fontHelper")}
-                </button>
-            </div>
-
             <main className="dys-main">
                 <header className="dys-header">
+                    <div className="font-helper-bar">
+                        <button onClick={toggleDyslexicFont} className="font-helper-btn">
+                            {isDyslexicFont ? t("defaultFont") : t("fontHelper")}
+                        </button>
+                    </div>
                     <h1 className="dys-title">{t("dyslexiaMode")}</h1>
                 </header>
 
@@ -163,7 +141,7 @@ const Home = () => {
                                 initial={{ opacity: 0, x: 50, scale: 0.9 }}
                                 animate={{ opacity: 1, x: 0, scale: 1 }}
                                 exit={{ opacity: 0, x: -50, scale: 0.9 }}
-                                transition={{ duration: 0.4, ease: "easeOut" }}
+                                transition={{ duration: 0.25, ease: "easeOut" }}
                                 className="dys-carousel-frame"
                                 onClick={() => navigate("/dyslexia" + carouselItems[carouselIndex].path)}
                             >

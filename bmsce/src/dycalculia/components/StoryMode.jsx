@@ -186,21 +186,9 @@ export default function StoryMode({ onBack }) {
   return (
     <div className="dycalculia-wrapper" style={styles.container}>
       <div className="snow-background"></div>
-      <nav className="dy-navbar">
-        <div className="dy-nav-logo" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', fontWeight: 'bold', fontSize: '1.2rem', color: 'white' }} onClick={onBack}>
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}>
-                <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-1.54Z" />
-                <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-1.54Z" />
-            </svg>
-            DDAP
-        </div>
-        <button onClick={onBack} className="back-dashboard-btn" style={{ cursor: 'pointer', background: 'transparent' }}>
-            ← Back to Home
-        </button>
-      </nav>
       <style>{globalStyles}</style>
 
-      <div style={{ marginTop: '80px', width: '100%', display: 'flex', justifyContent: 'center' }}>
+      <div style={{ marginTop: '40px', width: '100%', display: 'flex', justifyContent: 'center' }}>
       <div style={styles.contentWrapper}>
         {/* Header */}
         <div style={styles.headerSection}>

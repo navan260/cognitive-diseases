@@ -76,27 +76,21 @@ const Identify = () => {
     return (
         <div className="dyslexia-wrapper">
             <div className="snow-background"></div>
-            <nav className="dash-nav">
-                <div className="dash-nav-left" onClick={() => navigate("/propognasia")}>
-                    <div className="dash-brand">
-                        <span className="dash-brand-name">← Back</span>
-                    </div>
-                </div>
-            </nav>
+
             <main className="dys-main" style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <h1 className="dys-title">Identify Face</h1>
                 
-                <div style={{marginBottom: '20px'}}>
+                <div className="webcam-container">
                     {!imgSrc ? (
                         <Webcam
                             audio={false}
                             ref={webcamRef}
                             screenshotFormat="image/jpeg"
                             videoConstraints={{ facingMode: "user" }}
-                            style={{ borderRadius: '10px', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', width: '100%', maxWidth: '400px' }}
+                            className="dys-webcam"
                         />
                     ) : (
-                        <img src={imgSrc} alt="captured" style={{ borderRadius: '10px', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', width: '100%', maxWidth: '400px' }} />
+                        <img src={imgSrc} alt="captured" className="dys-webcam" />
                     )}
                 </div>
                 
@@ -108,13 +102,13 @@ const Identify = () => {
                     )}
                 </div>
 
-                {status && <p style={{marginTop: '10px', color: '#fff', fontSize: '18px'}}>{status}</p>}
+                {status && <p className="dys-status-msg">{status}</p>}
                 
                 {results.length > 0 && (
-                    <div style={{marginTop: '20px', background: 'rgba(0,0,0,0.6)', padding: '20px', borderRadius: '10px', width: '100%', maxWidth: '400px'}}>
-                        <h3 style={{color: '#fff', marginBottom: '10px', textAlign: 'center'}}>Recognition Results</h3>
+                    <div className="dys-result-box">
+                        <h3 className="dys-result-title">Recognition Results</h3>
                         {results.map((name, i) => (
-                            <div key={i} style={{color: '#4ade80', fontSize: '20px', fontWeight: 'bold', textAlign: 'center', margin: '5px 0'}}>
+                            <div key={i} className="dys-result-item">
                                 👤 {name}
                             </div>
                         ))}

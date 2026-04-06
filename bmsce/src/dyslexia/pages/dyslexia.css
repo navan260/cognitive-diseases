@@ -2,8 +2,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @import url('https://cdn.jsdelivr.net/npm/@fontsource/opendyslexic@latest/index.css');
 
+/* ── OpenDyslexic Scaling System ── */
+:root {
+  --dys-scale: 1;
+}
+
+:root.opendyslexic-font {
+  --dys-scale: 0.88; /* Scales down the UI to fit the ~20% larger OpenDyslexic font */
+}
+
+@media (max-width: 768px) {
+  :root.opendyslexic-font {
+    --dys-scale: 0.82; /* More aggressive scaling on mobile to prevent overflows */
+  }
+}
+
 .opendyslexic-font {
   font-family: 'OpenDyslexic', sans-serif !important;
+  font-size: calc(100% * var(--dys-scale)) !important;
 }
 
 .opendyslexic-font * {
@@ -25,16 +41,17 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 80px;
+  height: calc(80px * var(--dys-scale, 1));
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 40px;
+  padding: 0 calc(40px * var(--dys-scale, 1));
   background: rgba(2, 4, 17, 0.6);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  z-index: 100;
+  z-index: 1000;
+  transition: all 0.3s ease;
 }
 
 .dash-brand {
@@ -110,24 +127,24 @@
 
 /* Font Toggle Helper */
 .font-helper-bar {
-  position: absolute;
-  top: 92px;
-  right: 40px;
-  z-index: 50;
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: center;
   animation: dys-slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .font-helper-btn {
-  background: none;
-  border: none;
-  color: #94a3af;
-  font-size: 0.85rem;
-  font-weight: 500;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #3b82f6;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
-  padding: 4px 8px;
+  padding: 8px 20px;
+  border-radius: 100px;
   transition: all 0.2s;
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
 }
 
 .font-helper-btn:hover {
@@ -137,12 +154,13 @@
 
 /* ── Dyslexia Main Layout ── */
 .dys-main {
-  max-width: 1100px;
+  max-width: calc(1100px * var(--dys-scale, 1));
   margin: 0 auto;
-  padding: 140px 24px 80px;
+  padding: calc(140px * var(--dys-scale, 1)) calc(24px * var(--dys-scale, 1)) calc(80px * var(--dys-scale, 1));
   position: relative;
   z-index: 10;
   text-align: center;
+  transition: all 0.3s ease;
 }
 
 .dys-header {
@@ -156,7 +174,7 @@
 }
 
 .dys-sub-title {
-    font-size: 3rem;
+    font-size: 2.2rem;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -164,7 +182,7 @@
     font-family: 'Inter', sans-serif;
     color: #ffffff;
     text-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    line-height: 1.4;
+    line-height: 1.1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -172,13 +190,17 @@
 }
 
 .dys-title {
-  font-size: 4rem;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
-  margin-bottom: 16px;
+  font-size: 3.5rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 24px;
   color: #ffffff;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* ── Cinematic Carousel ── */
@@ -212,7 +234,7 @@
   backdrop-filter: blur(32px);
   -webkit-backdrop-filter: blur(32px);
   box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
-  transition: all 0.4s ease;
+  transition: all 0.25s ease;
   position: relative;
   overflow: hidden;
 }
@@ -231,14 +253,14 @@
 }
 
 .dys-carousel-title {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 12px;
 }
 
 .dys-carousel-desc {
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   color: #94a3af;
 }
 
@@ -301,7 +323,7 @@
 }
 
 .section-title {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: #cbd5e1;
 }
@@ -396,7 +418,7 @@
   width: 100%;
   max-width: 900px;
   max-height: 85vh;
-  padding: 48px;
+  padding: 32px;
   position: relative;
   overflow-y: auto;
   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
@@ -421,9 +443,9 @@
 }
 
 .dys-modal-title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 800;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
   text-align: center;
 }
 
@@ -444,7 +466,7 @@
 .detail-content {
   color: #cbd5e1;
   line-height: 1.7;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .flow-chart-box {
@@ -547,8 +569,8 @@
   min-height: 300px;
   max-height: 500px;
   overflow-y: auto;
-  font-size: 1.05rem;
-  line-height: 1.7;
+  font-size: 1rem;
+  line-height: 1.6;
   color: #cbd5e1;
 }
 
@@ -687,6 +709,76 @@
     font-weight: 700;
 }
 
+.webcam-container {
+    width: 100%;
+    max-width: 450px;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    margin-bottom: 32px;
+}
+
+/* ── Propognasia/Tool Utility Classes ── */
+.dys-status-msg {
+    margin-top: 20px;
+    color: #fff;
+    font-size: 1.1rem;
+    background: rgba(0,0,0,0.5);
+    padding: 12px 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    animation: dys-fade-in 0.3s ease;
+}
+
+.dys-result-box {
+    margin-top: 24px;
+    background: rgba(15, 23, 42, 0.8);
+    padding: 24px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.dys-result-title {
+    color: #fff;
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.dys-result-item {
+    color: #4ade80;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.dys-input {
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    font-size: 1rem;
+    width: 100%;
+    transition: all 0.2s;
+}
+
+.dys-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: rgba(255, 255, 255, 0.1);
+}
+
 @keyframes dys-pulse {
   0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
   70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
@@ -696,4 +788,165 @@
 @media (max-width: 900px) {
   .dys-layout-grid { grid-template-columns: 1fr; }
   .dys-sub-main { padding-top: 100px; }
+}
+
+@media (max-width: 768px) {
+  .dash-nav {
+    padding: 0 20px;
+    height: 70px;
+  }
+  
+  .dash-brand-name {
+    font-size: 1.25rem;
+  }
+
+  .dash-nav-right {
+    gap: 12px;
+  }
+
+  .dash-logout-link {
+    font-size: 0.9rem;
+  }
+
+  .dys-main {
+    padding: 100px 16px 60px;
+  }
+
+  .dys-header {
+    margin-bottom: 24px;
+  }
+
+  .dys-title {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+  }
+
+  .dys-sub-title {
+    font-size: 1.25rem;
+    gap: 8px;
+    line-height: 1.2;
+  }
+
+  .dys-carousel-container {
+    gap: 12px;
+    padding: 10px;
+  }
+
+  .dys-carousel-viewport {
+    width: 280px;
+    height: 240px;
+  }
+
+  .dys-carousel-frame {
+    padding: 24px;
+    border-radius: 24px;
+  }
+
+  .dys-icon-image {
+    height: 60px;
+    margin-bottom: 16px;
+  }
+
+  .dys-carousel-title {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+  }
+
+  .dys-carousel-desc {
+    font-size: 0.85rem;
+  }
+
+  .dys-arrow-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+  }
+
+  .dys-indicators {
+    margin-bottom: 32px;
+  }
+
+  .dys-modal-content {
+    padding: 24px 16px;
+    border-radius: 20px;
+  }
+
+  .dys-modal-title {
+    font-size: 1.25rem;
+    margin-bottom: 24px;
+  }
+
+  .dys-action-bar {
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto 32px;
+  }
+
+  .dys-btn-record, .dys-btn-upload, .dys-btn-primary {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 1rem;
+    justify-content: center;
+  }
+
+  .dys-panel {
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .dys-text-box {
+    padding: 16px;
+    font-size: 0.95rem;
+    min-height: 200px;
+  }
+
+  /* Assessment/Tool specific adjustments */
+  .webcam-container, .dys-result-box {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .dys-title {
+    font-size: 1.8rem;
+  }
+
+  .dys-sub-title {
+    font-size: 1.2rem;
+  }
+
+  .dys-carousel-container {
+    gap: 8px;
+  }
+
+  .dys-carousel-viewport {
+    width: 200px;
+    height: 180px;
+  }
+
+  .dys-carousel-frame {
+    padding: 16px;
+  }
+
+  .dys-icon-image {
+    height: 44px;
+    margin-bottom: 12px;
+  }
+
+  .dys-carousel-title {
+    font-size: 1.1rem;
+  }
+
+  .dys-carousel-desc {
+    font-size: 0.8rem;
+  }
+
+  .dys-arrow-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
 }

@@ -131,7 +131,7 @@ export default function Upload() {
     };
 
     const renderFormattedText = (text) => {
-        if (!text) return <p style={{ opacity: 0.6 }}>No data available yet.</p>;
+        if (!text) return <p style={{ opacity: 0.6 }}>{t("noDataAvailable")}</p>;
         const lines = text.split('\n').filter(line => line.trim() !== '');
         return (
             <ul className="dys-summary-list">
@@ -157,25 +157,6 @@ export default function Upload() {
         <div className={`dyslexia-wrapper ${isDyslexicFont ? "opendyslexic-font" : ""}`}>
             <div className="snow-background"></div>
 
-            <nav className="dash-nav">
-                <div className="dash-brand" onClick={() => navigate("/")}>
-                    <svg className="dash-logo" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-1.54Z" />
-                        <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-1.54Z" />
-                    </svg>
-                    <span className="dash-brand-name">DDAP</span>
-                </div>
-
-                <div className="dash-nav-right">
-                    <div className="dash-user-badge">
-                        <button onClick={() => navigate("/dashboard")} className="dash-logout-link">
-                            ← {t("backToDashboard")}
-                        </button>
-                    </div>
-                </div>
-            </nav>
-
-
             <main className="dys-sub-main">
                 <header className="dys-sub-header">
                     <h1 className="dys-sub-title">📁 {t("uploadMp3")}</h1>
@@ -189,7 +170,7 @@ export default function Upload() {
                             style={{ display: "none" }}
                         />
                         <label htmlFor="audio-upload" className="font-helper-btn" style={{ fontSize: '1.1rem', padding: '20px', display: 'block', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: '12px' }}>
-                            {file ? `🔔 Selected: ${file.name}` : "📂 Click to select an audio file (MP3, WAV)"}
+                            {file ? `🔔 ${t("selected")}: ${file.name}` : t("selectAudioFile")}
                         </label>
                         
                         {file && (
@@ -199,7 +180,7 @@ export default function Upload() {
                                 disabled={loading}
                                 style={{ marginTop: '20px', opacity: loading ? 0.6 : 1 }}
                             >
-                                {loading ? "⏳ Transcribing..." : "🚀 Process Audio"}
+                                {loading ? `⏳ ${t("transcribing")}` : `🚀 ${t("processAudio")}`}
                             </button>
                         )}
                     </div>
@@ -207,9 +188,9 @@ export default function Upload() {
 
                 <div className="dys-layout-grid">
                     <section className="dys-panel">
-                        <h3 className="dys-panel-title">📝 Transcript Result</h3>
+                        <h3 className="dys-panel-title">📝 {t("transcriptResult")}</h3>
                         <div className="dys-text-box">
-                            {result.original || <span style={{ opacity: 0.4 }}>Transcript will appear here...</span>}
+                            {result.original || <span style={{ opacity: 0.4 }}>{t("transcriptResult")}...</span>}
                         </div>
                     </section>
 
@@ -233,7 +214,7 @@ export default function Upload() {
 
                         <div className="dys-text-box">
                             {loading ? (
-                                <p style={{ opacity: 0.6 }}>⏳ Analyzing audio content...</p>
+                                <p style={{ opacity: 0.6 }}>⏳ {t("analyzingAudio")}</p>
                             ) : (
                                 <>
                                     {activeTab === "summary" && (
@@ -241,7 +222,7 @@ export default function Upload() {
                                             {result.summary && (
                                                 <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '15px' }}>
                                                     <button onClick={() => handleReadAloud(result.summary)} className="dys-action-badge listen">
-                                                        {isSpeaking ? "🛑 Stop" : "🔊 Listen"}
+                                                        {isSpeaking ? `🛑 ${t("stop")}` : `🔊 ${t("listen")}`}
                                                     </button>
                                                 </div>
                                             )}
@@ -253,16 +234,16 @@ export default function Upload() {
                                             {result.syllables && (
                                                 <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '15px' }}>
                                                     <button onClick={() => handleReadAloud(result.syllables)} className="dys-action-badge listen">
-                                                        {isSpeaking ? "🛑 Stop" : "🔊 Read"}
+                                                        {isSpeaking ? `🛑 ${t("stop")}` : `🔊 ${t("read")}`}
                                                     </button>
                                                 </div>
                                             )}
-                                            <p style={{ lineHeight: "2.5" }}>{result.syllables || "No parsing data yet."}</p>
+                                            <p style={{ lineHeight: "2.5" }}>{result.syllables || t("noParsingData")}</p>
                                         </div>
                                     )}
                                     {activeTab === "mindmap" && (
                                         <pre style={{ textAlign: "center", fontSize: "0.9rem", color: "#94a3af" }}>
-                                            {result.mindmap || "No flow chart yet."}
+                                            {result.mindmap || t("noFlowChart")}
                                         </pre>
                                     )}
                                 </>

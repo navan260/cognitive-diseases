@@ -1,0 +1,229 @@
+/* ── Unified Dashboard Header ── */
+.dash-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  background: rgba(2, 4, 17, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.dash-brand, .dash-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.dash-brand:hover, .dash-back-btn:hover {
+  transform: translateY(-1px);
+}
+
+.dash-logo {
+  width: 32px;
+  height: 32px;
+  color: #3b82f6;
+}
+
+.dash-brand-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dash-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Custom Language Dropdown */
+.dash-lang-dropdown-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dash-lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 14px;
+  border-radius: 100px;
+  color: #f8fafc;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+}
+
+.dash-lang-toggle:hover, .dash-lang-toggle.active {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
+}
+
+.lang-globe-icon {
+  color: #3b82f6;
+  flex-shrink: 0;
+}
+
+.lang-chevron {
+  color: #64748b;
+  transition: transform 0.3s ease;
+}
+
+.lang-chevron.up {
+  transform: rotate(180deg);
+}
+
+.dash-lang-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 180px;
+  background: rgba(10, 15, 28, 0.98);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 1100;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 20px rgba(59, 130, 246, 0.05);
+  animation: menuIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes menuIn {
+  from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.dash-lang-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  color: #94a3af;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.dash-lang-option:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.dash-lang-option.selected {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+.lang-check {
+  flex-shrink: 0;
+}
+
+/* User Actions & Back Button */
+.dash-user-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 20px;
+  border-radius: 100px;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s;
+}
+
+.dash-user-badge:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.dash-logout-link {
+  background: none;
+  border: none;
+  color: #94a3af;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.dash-logout-link:hover {
+  color: #f87171;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+  .dash-nav {
+    height: 70px;
+    padding: 0 24px;
+  }
+  
+  .dash-brand-name {
+    font-size: 1.25rem;
+  }
+  
+  .dash-logo {
+    width: 26px;
+    height: 26px;
+  }
+  
+  .dash-nav-right {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .dash-nav {
+    padding: 0 16px;
+    height: 64px;
+  }
+  
+  .dash-nav-right {
+    gap: 8px;
+  }
+  
+  .dash-lang-picker {
+    padding: 6px 12px;
+  }
+  
+  .dash-user-badge {
+    padding: 6px 14px;
+  }
+  
+  .dash-brand-name {
+    font-size: 1.1rem;
+  }
+  
+  /* Hide text on mobile for small buttons if needed */
+  /* .dash-logout-link { font-size: 0.85rem; } */
+}

@@ -80,27 +80,21 @@ const Enroll = () => {
     return (
         <div className="dyslexia-wrapper">
             <div className="snow-background"></div>
-            <nav className="dash-nav">
-                <div className="dash-nav-left" onClick={() => navigate("/propognasia")}>
-                    <div className="dash-brand">
-                        <span className="dash-brand-name">← Back</span>
-                    </div>
-                </div>
-            </nav>
+
             <main className="dys-main" style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <h1 className="dys-title">Enroll Face</h1>
                 
-                <div style={{marginBottom: '20px'}}>
+                <div className="webcam-container">
                     {!imgSrc ? (
                         <Webcam
                             audio={false}
                             ref={webcamRef}
                             screenshotFormat="image/jpeg"
                             videoConstraints={{ facingMode: "user" }}
-                            style={{ borderRadius: '10px', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', width: '100%', maxWidth: '400px' }}
+                            className="dys-webcam"
                         />
                     ) : (
-                        <img src={imgSrc} alt="captured" style={{ borderRadius: '10px', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', width: '100%', maxWidth: '400px' }} />
+                        <img src={imgSrc} alt="captured" className="dys-webcam" />
                     )}
                 </div>
                 
@@ -112,18 +106,18 @@ const Enroll = () => {
                     )}
                 </div>
 
-                <div style={{display: 'flex', flexDirection: 'column', gap: '10px', width: '100%', maxWidth: '300px'}}>
+                <div className="dys-input-group">
                     <input 
                         type="text" 
                         placeholder="Enter person's name" 
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        style={{padding: '10px', borderRadius: '5px', border: 'none', fontSize: '16px'}}
+                        className="dys-input"
                     />
                     <button className="dys-btn-primary" onClick={handleEnroll} disabled={!imgSrc}>Save Face</button>
                 </div>
                 
-                {status && <p style={{marginTop: '20px', color: '#fff', fontSize: '18px', background: 'rgba(0,0,0,0.5)', padding: '10px', borderRadius: '5px'}}>{status}</p>}
+                {status && <p className="dys-status-msg">{status}</p>}
                     
             </main>
         </div>

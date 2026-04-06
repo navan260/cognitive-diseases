@@ -7,6 +7,7 @@ import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import Landing from "./landing";
 import Auth from "./Auth.jsx";
 import Hero from "./hero";
+import Header from "./components/Header";
 
 // Import Dyslexia Pages
 import DyslexiaHome from "./dyslexia/pages/Home";
@@ -60,6 +61,7 @@ export default function App() {
 
     return (
         <LanguageProvider>
+            <Header user={user} />
             <Routes>
                 {/* Main Routing */}
                 <Route path="/" element={<Landing user={user} />} />
