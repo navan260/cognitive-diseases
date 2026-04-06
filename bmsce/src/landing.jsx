@@ -152,13 +152,13 @@ export default function Landing({ user }) {
                         <footer className="footer-section">
                             <h3>{t("connectUs")}</h3>
                             <div className="social-links">
-                                <a href="https://github.com/Tanish-2112" target="_blank" rel="noreferrer" id="github-link">
+                                <a href="https://github.com/Kiran8112006" target="_blank" rel="noreferrer" id="github-link">
                                     <img
                                         src="https://upload.wikimedia.org/wikipedia/commons/c/c2/GitHub_Invertocat_Logo.svg"
                                         alt="GitHub"
                                     />
                                 </a>
-                                <a href="https://www.instagram.com/_heyy_sxmarth/#" target="_blank" rel="noreferrer" id="instagram-link">
+                                <a href="https://www.instagram.com/kiran._8/" target="_blank" rel="noreferrer" id="instagram-link">
                                     <img
                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/CIS-A2K_Instagram_Icon_%28Black%29.svg/960px-CIS-A2K_Instagram_Icon_%28Black%29.svg.png"
                                         alt="Instagram"
