@@ -37,7 +37,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 60px;
+  padding: 14px 30px;
   background: #0f172a;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   z-index: 100;
@@ -55,8 +55,13 @@ body {
   opacity: 0.85;
 }
 
+.nav-logo-icon {
+  width: 26px;
+  height: 26px;
+}
+
 .nav-logo-text {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: #2563eb;
   letter-spacing: -0.01em;
@@ -74,9 +79,9 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: #f8fafc;
   /* Lighter text for better contrast */
-  padding: 8px 12px;
-  border-radius: 10px;
-  font-size: 0.85rem;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
   outline: none;
@@ -110,9 +115,9 @@ body {
   background: #2563eb;
   color: white;
   border: none;
-  padding: 10px 24px;
-  border-radius: 10px;
-  font-size: 0.95rem;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -150,6 +155,12 @@ body {
   font-weight: 600;
   color: #e2e8f0;
   letter-spacing: 0.02em;
+}
+
+.dash-logo {
+  width: 28px;
+  height: 28px;
+  color: #3b82f6;
 }
 
 .user-avatar {
@@ -370,4 +381,123 @@ body {
   height: 22px;
   object-fit: contain;
   filter: brightness(1.4);
+}
+
+/* ── Responsive ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .landing-header {
+    padding: 12px 16px;
+    height: 64px;
+  }
+
+  .nav-logo-text {
+    font-size: 1.1rem;
+  }
+
+  .nav-logo-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .nav-actions {
+    gap: 8px;
+  }
+
+  .nav-lang-select {
+    padding: 6px 8px;
+    font-size: 0.75rem;
+    border-radius: 8px;
+  }
+
+  .nav-get-started {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    border-radius: 8px;
+  }
+
+  .hero-section {
+    height: calc(100vh - 64px);
+    padding: 0 16px;
+  }
+
+  .content-section {
+    padding: 20px 18px;
+    border-radius: 16px;
+    margin-bottom: 8px; /* Extra breathing room between sections */
+  }
+
+  .content-section h2 {
+    font-size: 1.35rem;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .content-section p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: #cbd5e1; /* Slightly lighter for readability */
+  }
+
+  .landing-content {
+    padding: 40px 16px 60px;
+  }
+
+  .content-wrapper {
+    gap: 24px;
+  }
+
+  .hero-section h2 {
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
+    margin-bottom: 16px;
+  }
+
+  .hero-section p {
+    font-size: 0.95rem;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-content {
+    padding: 30px 12px 50px;
+  }
+  
+  .content-wrapper {
+    gap: 20px;
+  }
+
+  .content-section {
+    padding: 18px 15px;
+  }
+
+  /* Collapse nav to icons */
+  .nav-lang-select {
+    width: 20px;
+    text-indent: -9999px;
+    padding: 0;
+  }
+
+  .nav-actions {
+    gap: 8px;
+  }
+
+  .landing-header {
+    padding: 12px;
+  }
+
+  .nav-logo-text {
+    display: block; /* Ensure it stays visible */
+  }
+
+  .nav-logo-icon {
+    display: block;
+  }
+  
+  .user-name {
+    display: none; /* Hide name on very small screens to save space */
+  }
+
+  .user-profile-badge {
+    padding: 4px;
+  }
 }

@@ -28,14 +28,33 @@ export default function Hero({ user }) {
                 </div>
 
                 <div className="dash-nav-right">
-                    <div className="dash-user-badge">
-                        <svg className="user-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                            <circle cx="12" cy="7" r="4" />
+                    <div className="dash-lang-picker">
+                        <svg className="lang-globe-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="2" y1="12" x2="22" y2="12" />
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                         </svg>
-                        <span className="user-email">{user?.email}</span>
-                        <div className="user-divider"></div>
-                        <button onClick={logout} className="dash-logout-link">{t("logout")}</button>
+                        <select
+                            value={language}
+                            onChange={(e) => changeLanguage(e.target.value)}
+                            className="dash-lang-select-small"
+                        >
+                            {languages.map(lang => (
+                                <option key={lang.code} value={lang.code}>
+                                    {lang.nativeName.split(' ')[0]}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="dash-user-actions">
+                        <button onClick={logout} className="dash-logout-btn" title={t("logout")}>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                                <polyline points="16 17 21 12 16 7" />
+                                <line x1="21" y1="12" x2="9" y2="12" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </nav>

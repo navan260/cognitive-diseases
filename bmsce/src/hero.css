@@ -20,29 +20,30 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 40px;
-  background: rgba(2, 4, 17, 0.6);
+  padding: 0 20px;
+  background: rgba(2, 4, 17, 0.7);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  z-index: 100;
+  z-index: 1000;
 }
 
 .dash-brand {
   display: flex;
   align-items: center;
   gap: 12px;
+  cursor: pointer;
 }
 
 .dash-logo {
-  width: 32px;
-  height: 32px;
+  width: 18px;
+  height: 18px;
   color: #3b82f6;
 }
 
 .dash-brand-name {
-  font-size: 1.5rem;
-  font-weight: 800;
+  font-size: 1rem;
+  font-weight: 700;
   letter-spacing: -0.02em;
   background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
   -webkit-background-clip: text;
@@ -53,69 +54,75 @@
 .dash-nav-right {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 12px;
 }
 
 /* Minimal Lang Selector */
-.dash-lang-select-small {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #94a3af;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  outline: none;
-}
-
-/* User Badge Pill */
-.dash-user-badge {
+.dash-lang-picker {
   display: flex;
   align-items: center;
-  gap: 12px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 6px 16px;
-  border-radius: 100px;
-  font-size: 0.9rem;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 14px;
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
 }
 
-.user-icon {
-  width: 18px;
-  height: 18px;
-  color: #94a3af;
+.lang-globe-icon {
+  color: #3b82f6;
+  flex-shrink: 0;
 }
 
-.user-email {
-  color: #cbd5e1;
-  font-weight: 500;
-}
-
-.user-divider {
-  width: 1px;
-  height: 16px;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.dash-logout-link {
-  background: none;
+.dash-lang-select-small {
+  background: transparent;
   border: none;
-  color: #f87171;
+  color: #f8fafc;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  padding: 4px 8px;
-  transition: opacity 0.2s;
+  outline: none;
+  transition: all 0.2s;
+  padding: 0;
 }
 
-.dash-logout-link:hover {
-  opacity: 0.8;
+.dash-lang-select-small option {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+/* User Actions */
+.dash-user-actions {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 4px;
+  border-radius: 100px;
+  backdrop-filter: blur(8px);
+}
+
+.dash-logout-btn {
+  background: none;
+  border: none;
+  color: #fca5a5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: all 0.2s;
+}
+
+.dash-logout-btn:hover {
+  color: #ef4444;
 }
 
 /* ── Main Layout ── */
 .dashboard-main {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 140px 24px 80px;
+  padding: 120px 24px 80px;
   position: relative;
   z-index: 10;
 }
@@ -190,6 +197,11 @@
   position: relative;
 }
 
+.nav-logo-icon {
+  width: 22px;
+  height: 22px;
+}
+
 .mode-icon {
   width: 48px;
   height: 48px;
@@ -258,20 +270,87 @@
 @media (max-width: 900px) {
   .dash-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
   .dash-welcome-title {
-    font-size: 2.8rem;
+    font-size: 2rem;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .dash-welcome-subtitle {
+    font-size: 0.95rem;
+    padding: 0 10px;
+  }
+  .dashboard-main {
+    padding: 90px 16px 60px;
+    margin-bottom: 24px;
   }
   .dash-nav {
-    padding: 0 24px;
+    padding: 0 16px;
+    height: 64px;
+  }
+  .dash-brand-name {
+    font-size: 1.25rem;
+  }
+  .dash-logo {
+    width: 24px;
+    height: 24px;
+  }
+  .dash-mode-card {
+    padding: 24px;
+    border-radius: 24px;
+  }
+  .mode-icon-container {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 20px;
+  }
+  .mode-icon {
+    width: 32px;
+    height: 32px;
+  }
+  .mode-name {
+    font-size: 1.5rem;
+  }
+  .mode-desc {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+  .mode-btn {
+    padding: 14px;
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 600px) {
-  .dash-user-badge .user-email {
-    display: none;
+  .dash-lang-picker {
+    padding: 6px;
+    gap: 0;
   }
+  
+  .dash-lang-select-small {
+    width: 20px; /* Only show the arrow/hitbox */
+    text-indent: -9999px;
+    padding: 0;
+  }
+
   .dash-nav-right {
-    gap: 12px;
+    gap: 8px;
+  }
+  
+  .dash-nav {
+    padding: 0 12px;
+  }
+  
+  .dash-user-actions {
+    padding: 2px;
+  }
+  
+  .dash-logout-btn {
+    padding: 6px;
+  }
+
+  .dash-brand-name {
+    font-size: 1.1rem;
   }
 }

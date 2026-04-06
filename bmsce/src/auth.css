@@ -158,6 +158,35 @@ body {
   box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }
 
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+  z-index: 10;
+}
+
+.password-toggle-btn:hover {
+  color: #2563eb;
+}
+
+.pr-10 {
+  padding-right: 44px !important;
+}
+
 /* ── Primary Action ── */
 .auth-btn-primary {
   width: 100%;
@@ -373,6 +402,28 @@ body {
 /* ── Responsive ── */
 @media (max-width: 480px) {
   .auth-card {
-    padding: 40px 24px;
+    padding: 32px 20px;
+    border-radius: 20px;
+  }
+  .auth-heading {
+    font-size: 1.5rem;
+  }
+  .auth-tab {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+  .auth-input {
+    padding: 12px 14px;
+    font-size: 0.9rem;
+  }
+  .auth-btn-primary {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+  .auth-brand {
+    margin-bottom: 24px;
+  }
+  .brand-header {
+    margin-bottom: 12px;
   }
 }
